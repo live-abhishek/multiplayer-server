@@ -1,3 +1,4 @@
+const logger = require('./log4js').logger;
 const express = require('express');
 const path = require('path');
 
@@ -16,4 +17,4 @@ app.get('/hello', (req, res) => {
 const port = process.env.PORT || 12345;
 app.listen(port);
 
-console.log(`Multiplayer server listening on ${port}`);
+logger.info(`Multiplayer server listening on ${port}`);

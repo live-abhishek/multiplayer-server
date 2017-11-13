@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SimpleAppBar from './SimpleAppBar';
+import NicknameDialog from './dialog/NicknameDialog';
 
 class App extends Component {
   constructor() {
@@ -21,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         <SimpleAppBar />
-        <div>{this.state.text}</div>
+        <NicknameDialog />
       </div>
     );
   }

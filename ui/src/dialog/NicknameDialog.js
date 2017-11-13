@@ -7,9 +7,13 @@ import Dialog, {
 } from 'material-ui/Dialog';
 
 class NicknameDialog extends React.Component {
-    state = {
-        open: true
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            open: true
+        };
+    }
+    
     handleRequestClose = () => {
         this.setState({ open: false });
     };

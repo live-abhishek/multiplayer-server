@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import SimpleAppBar from './SimpleAppBar';
 
 class App extends Component {
   constructor() {
@@ -19,6 +20,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <SimpleAppBar />
         <div>{this.state.text}</div>
       </div>
     );

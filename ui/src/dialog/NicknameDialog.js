@@ -10,7 +10,8 @@ class NicknameDialog extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            open: true
+            open: true,
+            nickname: ''
         };
     }
     
@@ -18,15 +19,19 @@ class NicknameDialog extends React.Component {
         this.setState({ open: false });
     };
 
+    handleTextFieldOnChange = (e) => {
+        this.setState({nickname: e.target.value});
+    }
+
     render(){
         return(
             <div>
                 <Dialog open={this.state.open} ignoreBackdropClick={true} ignoreEscapeKeyUp={true}>
                     <DialogContent>
-                        <TextField autoFocus margin="dense" id="nickname" label="Enter your nickname"/>
+                        <TextField autoFocus margin="dense" id="nickname" label="Enter your nickname" onChange={this.handleTextFieldOnChange}/>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleRequestClose} color="primary">
+                        <Button onClick={this.handleRequestClose} color="primary" disabled={this.state.nickname ? false : true}>
                             Sumbit
                         </Button>
                     </DialogActions>

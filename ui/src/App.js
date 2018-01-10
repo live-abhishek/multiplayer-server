@@ -1,28 +1,19 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import Header from './header/Header';
+import GameArea from './game/gameArea';
 import './App.css';
-import SimpleAppBar from './SimpleAppBar';
-import NicknameDialog from './dialog/NicknameDialog';
 
-class App extends Component {
+
+class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      text: ''
-    };
-  }
-
-  componentDidMount() {
-    fetch('/hello')
-      .then(res => res.text())
-      .then(text => this.setState({ text }));
   }
 
   render() {
     return (
       <div className="App">
-        <SimpleAppBar />
-        <NicknameDialog />
+        <Header />
+        <GameArea />
       </div>
     );
   }

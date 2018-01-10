@@ -41,7 +41,7 @@ class NicknameDialog extends React.Component {
           <DialogActions>
             <Button onClick={this.handleRequestClose} color="primary" disabled={this.state.nickname ? false : true}>
               Sumbit
-                        </Button>
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

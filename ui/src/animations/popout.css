@@ -1,0 +1,28 @@
+.popout-enter {
+    transform: scale(0);
+  }
+  
+  .popout-enter.popout-enter-active {
+    animation: popout 500ms ease;
+  }
+  
+  .popout-appear {
+    transform: scale(0);
+  }
+  
+  .popout-appear.popout-appear-active {
+    animation: popout 500ms ease;
+  }
+  
+  @keyframes popout {
+    from {
+      transform: scale(0);
+    }
+    80% {
+      transform: scale(1.1);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  

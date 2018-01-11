@@ -1,5 +1,6 @@
 import React from "react";
 import { TransitionGroup } from "react-transition-group";
+import classNames from 'classnames';
 import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
 
@@ -7,7 +8,8 @@ class TicTacToeBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: [[0, 1, 0], [2, 0, 0], [0, 0, 0]]
+      board: [[0, 1, 0], [2, 0, 0], [0, 0, 0]],
+      winningCells: []
     };
   }
 
@@ -20,7 +22,16 @@ class TicTacToeBoard extends React.Component {
     ];
     newBoard[1][2] = 1;
     this.setState({ board: newBoard });
+    let newWinningCells = [[1,2], [0,1]];
+    this.setState({ winningCells: newWinningCells });
   };
+
+  getCellClasses = (rowIndex, colIndex) => {
+    return classNames({
+      'cell': true,
+      'cell-background-transition': this.state.winningCells.some(cell => cell[0] === rowIndex && cell[1] === colIndex)
+    });
+  }
 
   render() {
     return (
@@ -28,7 +39,7 @@ class TicTacToeBoard extends React.Component {
         {this.state.board.map((row, rowIndex) =>
           row.map((cell, colIndex) => {
             return (
-              <div className="cell" key={`${rowIndex}-${colIndex}`}>
+              <div key={`${rowIndex}-${colIndex}`} className={this.getCellClasses(rowIndex, colIndex)}>
                 <TransitionGroup appear>
                   {cell === 0 && (
                     <img
@@ -43,7 +54,7 @@ class TicTacToeBoard extends React.Component {
                       <img
                         src="https://image.ibb.co/nDDDuw/circle_outline.png"
                         alt=""
-                        className="cell-content"
+                        className='cell-content'
                       />
                     </Popout>
                   )}
@@ -52,7 +63,7 @@ class TicTacToeBoard extends React.Component {
                       <img
                         src="https://image.ibb.co/jY0nMb/close.png"
                         alt=""
-                        className="cell-content"
+                        className='cell-content'
                       />
                     </Popout>
                   )}

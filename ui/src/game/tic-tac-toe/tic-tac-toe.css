@@ -16,12 +16,17 @@
     width: 25vmin;
     height: 25vmin;
     border: 1px solid lightgrey;
+    transition: background-color 1s;
   }
   
   .cell-content {
     width: 80%;
     height: 80%;
     margin: 10%;
+  }
+
+  .cell-background-transition {
+    background-color: lightgreen
   }
   
   .cell-content-empty {

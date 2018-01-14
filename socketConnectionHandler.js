@@ -7,7 +7,7 @@ const connectionHandler = (socket) => {
   });
   socket.on('gameRequest', (data) => {
     addPlayerToRoom(socket, data.gameType);
-    socket.emit('gameRequestFullfilled', {});
+    socket.emit('gameRequestFulfilled', data);
   });
 };
 

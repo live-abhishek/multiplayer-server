@@ -1,6 +1,15 @@
-export function requestGame() {
+import socket from '../socketProvider';
+
+export function requestGame(gameType) {
   return {
     type: "GAME_REQUEST",
-    payload: "Nothing"
+    payload: gameType
+  }
+}
+
+export function requestGameFulfilled(gameType) {
+  return {
+    type: "GAME_REQUEST_FULFILLED",
+    payload: gameType
   }
 }

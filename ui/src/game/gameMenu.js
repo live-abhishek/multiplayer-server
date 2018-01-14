@@ -11,14 +11,18 @@ const styles = theme => ({
   },
 });
 
+
 const gameMenu = (props) => {
-  const { classes, requestHandler } = props;
+  const clickHandler = (param) => () => {
+    props.requestHandler(param);
+  }
+  const { classes } = props;
   return (
     <div>
-      < Button raised color="primary" className={classes.button} onClick={requestHandler}>
+      < Button raised color="primary" className={classes.button} onClick={clickHandler('tictactoe')}>
         Tic-Tac-Toe-1
       </Button >
-      < Button raised color="accent" className={classes.button} onClick={requestHandler}>
+      < Button raised color="accent" className={classes.button} onClick={clickHandler('tictactoe2')}>
         Tic-Tac-Toe-2
       </Button >
     </div>

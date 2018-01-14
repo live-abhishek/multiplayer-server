@@ -4,6 +4,7 @@ import GameMenu from './gameMenu';
 import CircularIndeterminate from './gameWaiting';
 import { connect } from 'react-redux';
 import { requestGame } from './gameAction';
+import socket from '../socketProvider';
 
 const gameArea = (props) => {
   return (
@@ -11,21 +12,24 @@ const gameArea = (props) => {
     <div>
       {props.gameState === 'MENU' && <GameMenu requestHandler={props.requestGame} />}
       {props.gameState === 'WAITING' && <CircularIndeterminate />}
+      {props.gameState === 'FULFILLED' && props.gameType === 'tictactoe' && <TicTacToe />}
+      {props.gameState === 'FULFILLED' && props.gameType === 'tictactoe2' && <div>TicTacToe2</div>}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    gameState: state.game.gameState
+    gameState: state.game.gameState,
+    gameType: state.game.gameType
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestGame: () => {
-      console.log('something')
-      dispatch(requestGame());
+    requestGame: (gameType) => {
+      socket.emit('gameRequest', { gameType })
+      dispatch(requestGame(gameType));
     }
   }
 }

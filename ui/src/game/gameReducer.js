@@ -10,6 +10,13 @@ export default (state = initialState, action) => {
         ...state,
         gameState: 'WAITING'
       }
+      break;
+    case "GAME_REQUEST_FULFILLED":
+      state = {
+        ...state,
+        gameState: 'FULFILLED',
+        gameType: action.payload
+      }
   }
   return state;
 }

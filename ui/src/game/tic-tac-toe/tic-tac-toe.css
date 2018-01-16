@@ -3,8 +3,8 @@
   }
   
   .board {
-    width: 75vmin;
-    height: 75vmin;
+    width: 60vmin;
+    height: 60vmin;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-left: auto;
@@ -13,8 +13,8 @@
   }
   
   .cell {
-    width: 25vmin;
-    height: 25vmin;
+    width: 20vmin;
+    height: 20vmin;
     border: 1px solid lightgrey;
     transition: background-color 1s;
   }

@@ -14,7 +14,7 @@ const createRoom = (gameType) => {
 }
 
 const addSocketToRoom = (room, socket) => {
-  room.playerSockets.push(socket);
+  room.addPlayer(socket);
   roomMap[socket.id] = room.roomName;
 }
 
@@ -27,7 +27,7 @@ const removeRoom = (room) => {
 }
 
 const addPlayerToRoom = (socket, gameType) => {
-  let availableRoom = gameRooms[gameType].filter(room => room.playerSockets.length == 1)[0];
+  let availableRoom = gameRooms[gameType].find(room => room.isAvailable());
   if (availableRoom) {
     addSocketToRoom(availableRoom, socket);
   } else {
@@ -37,5 +37,5 @@ const addPlayerToRoom = (socket, gameType) => {
 }
 
 module.exports = {
-  addPlayerToRoom
+  addPlayerToRoom,
 }

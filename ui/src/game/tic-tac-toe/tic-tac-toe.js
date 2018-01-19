@@ -8,7 +8,7 @@ class TicTacToeBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: [[0, 1, 0], [2, 0, 0], [0, 0, 0]],
+      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
       winningCells: []
     };
   }
@@ -22,7 +22,7 @@ class TicTacToeBoard extends React.Component {
     ];
     newBoard[1][2] = 1;
     this.setState({ board: newBoard });
-    let newWinningCells = [[1,2], [0,1]];
+    let newWinningCells = [[1, 2], [0, 1]];
     this.setState({ winningCells: newWinningCells });
   };
 

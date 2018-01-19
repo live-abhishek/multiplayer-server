@@ -7,9 +7,9 @@ export function requestGame(gameType) {
   }
 }
 
-export function requestGameFulfilled(gameType) {
+export function requestGameFulfilled(data) {
   return {
     type: "GAME_REQUEST_FULFILLED",
-    payload: gameType
+    payload: data
   }
 }

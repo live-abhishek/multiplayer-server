@@ -4,7 +4,7 @@ import { requestGameFulfilled } from './game/gameAction'
 
 var socket = io.connect();
 socket.on('gameRequestFulfilled', (data) => {
-  store.dispatch(requestGameFulfilled(data.gameType));
+  store.dispatch(requestGameFulfilled(data));
 });
 
 export default socket;

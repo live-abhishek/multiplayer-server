@@ -1,9 +1,11 @@
-// const logger = require('./log4js').logger;
-
+import { load } from 'dotenv-extended';
+load();
 import * as express from 'express';
 import * as path from 'path';
 import * as sio from 'socket.io';
 import { Request, Response } from 'express';
+
+import { logger } from './bunyan';
 
 const app = express();
 const server = require('http').Server(app);
@@ -24,4 +26,4 @@ app.get('/hello', (req: Request, res: Response) => {
 const port = process.env.PORT || 12345;
 server.listen(port);
 
-// logger.info(`Multiplayer server listening on ${port}`);
+logger.info(`Multiplayer server listening on ${port}`);

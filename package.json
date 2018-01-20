@@ -21,6 +21,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bunyan": "^1.8.12",
+    "dotenv-extended": "^2.0.1",
     "express": "^4.16.2",
     "log4js": "^2.3.11",
     "socket.io": "^2.0.4",
@@ -28,6 +30,7 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
+    "@types/bunyan": "^1.8.4",
     "@types/express": "github:types/express",
     "@types/node": "^9.3.0",
     "@types/socket.io": "^1.4.31",

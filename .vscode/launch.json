@@ -8,10 +8,8 @@
       "type": "node",
       "request": "attach",
       "name": "Attach",
-      "address": "127.0.0.1",
       "port": 9229,
       "sourceMaps": true,
-      "restart": true,
       "protocol": "inspector"
     },
     {

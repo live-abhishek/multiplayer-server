@@ -13,7 +13,7 @@ const server = require('http').Server(app);
 const io = sio(server);
 
 io.on('connection', socketConnectionHandler);
-app.use(express.static(path.join(__dirname, '..', 'u', 'build')));
+app.use(express.static(path.join(__dirname, '..', 'ui', 'build')));
 
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '..', 'ui', 'build', 'index.html'));

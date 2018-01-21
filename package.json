@@ -8,7 +8,7 @@
     "watch-node": "nodemon dist/app.js",
     "build": "npm run build-ts && npm run build-ui",
     "build-ts": "tsc",
-    "build-ui": "cd ui && npm run build",
+    "build-ui": "cd ui && npm install && npm run build",
     "watch-ts": "tsc -w",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\" ",
     "serve": "node dist/app.js",

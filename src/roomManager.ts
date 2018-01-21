@@ -21,19 +21,19 @@ export class RoomManager {
   }
 
   private ctreateRoomByGameType(gameType: string): IRoom {
-    let room: IRoom = null;
+    let room: IRoom;
     switch (gameType) {
-      case "tictactoe":
+      case 'tictactoe':
         room = new TicTacToeRoom(uuidv1());
         break;
       default:
-        throw new Error("Unidentified game type");
+        throw new Error('Unidentified game type');
     }
     return room;
   }
 
   private createRoom(requestData: GameRequest, socket: any): IRoom {
-    let room = this.ctreateRoomByGameType(requestData.gameType);
+    const room = this.ctreateRoomByGameType(requestData.gameType);
     this.addPlayerToRoom(room, socket);
     this.rooms.push(room);
     return room;
@@ -51,7 +51,7 @@ export class RoomManager {
   }
 
   public processGameRequest(socket: any, requestData: GameRequest) {
-    let availableRoom = this.rooms.find(room => room.gameType === requestData.gameType && room.isAvailable());
+    const availableRoom = this.rooms.find(room => room.gameType === requestData.gameType && room.isAvailable());
     if (availableRoom) {
       this.addPlayerToRoom(availableRoom, socket);
     } else {

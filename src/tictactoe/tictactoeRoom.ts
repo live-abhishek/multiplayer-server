@@ -1,9 +1,9 @@
-import { IRoom } from "../IRoom";
+import { IRoom } from '../iRoom';
 
 export class TicTacToeRoom implements IRoom {
-  private static readonly winStates: Array<Array<number>> = null;
+  private static readonly winStates: Array<Array<number>> = [];
 
-  gameType: string = "tictactoe";
+  gameType: string = 'tictactoe';
   players: Array<any> = [];
   readonly roomName: string;
   private gameState: Array<Array<number>> = [
@@ -36,6 +36,6 @@ export class TicTacToeRoom implements IRoom {
   }
 
   processEvent(event: any, socket: any): void {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 }

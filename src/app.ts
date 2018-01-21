@@ -4,7 +4,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as sio from 'socket.io';
 import { Request, Response } from 'express';
-import { socketConnectionHandler } from './socketConnectionHandler'
+import { socketConnectionHandler } from './socketConnectionHandler';
 
 import { logger } from './bunyan';
 

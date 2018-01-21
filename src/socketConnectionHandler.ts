@@ -1,4 +1,4 @@
-import { RoomManager, GameRequest } from "./roomManager";
+import { RoomManager, GameRequest } from './roomManager';
 
 const roomManager = RoomManager.getRoomManager();
 

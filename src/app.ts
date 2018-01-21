@@ -4,6 +4,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as sio from 'socket.io';
 import { Request, Response } from 'express';
+import { socketConnectionHandler } from './socketConnectionHandler'
 
 import { logger } from './bunyan';
 
@@ -11,7 +12,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = sio(server);
 
-io.on('connection', require('./socketConnectionHandler'));
+io.on('connection', socketConnectionHandler);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/', (req: Request, res: Response) => {

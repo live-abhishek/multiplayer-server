@@ -10,7 +10,8 @@
       "name": "Attach",
       "port": 9229,
       "sourceMaps": true,
-      "protocol": "inspector"
+      "protocol": "inspector",
+      "restart": true
     },
     {
       "type": "node",

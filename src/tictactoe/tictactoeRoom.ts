@@ -19,12 +19,16 @@ export class TicTacToeResponseEvent {
    */
   turn: boolean;
   /**
-   * Represents the state of the tictactoe board
+   * Represents the state of the tictactoe match
    * 0 - match is in progress
    * 1 - you won
    * 2 - you lost
    */
   matchState: number;
+  /**
+   * This is required if matchState is not 0
+   */
+  winState?: Array<number>;
 }
 
 export class TicTacToeRoom implements IRoom {
@@ -41,6 +45,7 @@ export class TicTacToeRoom implements IRoom {
 
   gameType: string = TIC_TAC_TOE;
   players: Array<any> = [];
+  winState: Array<number>;
   readonly roomName: string;
   /**
    * Represents the state of the tictactoe board
@@ -48,21 +53,36 @@ export class TicTacToeRoom implements IRoom {
    * 1 = O - cell marked by player 1
    * 2 = X - cell markde by player 2
    */
-  private gameState: Array<Array<number>> = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-  ];
+  private gameState: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   constructor(roomName: string) {
     this.roomName = roomName;
   }
 
   addPlayer(socket: any): void {
+    if (!this.isAvailable()) {
+      throw new Error('Cannot add anymore player in this room');
+    }
     this.players.push(socket);
     if (!this.isAvailable()) {
       this.startGame();
     }
+  }
+
+  isGameOver(): boolean {
+    return this.winState ? true : false;
+  }
+
+  isAvailable(): boolean {
+    return this.players.length < 2;
+  }
+
+  processEvent(event: any, socket: any): void {
+    const playerId = this.getPlayerId(socket);
+    const newCellState = playerId + 1;
+    const tttEvent = <TicTacToeRequestEvent>event;
+    this.updateGameBoard(tttEvent, newCellState);
+    this.sendResponse(socket, tttEvent.cellNum, newCellState, playerId);
   }
 
   private startGame() {
@@ -76,32 +96,22 @@ export class TicTacToeRoom implements IRoom {
     });
   }
 
-  isAvailable(): boolean {
-    if (this.players.length === 2) {
-      return false;
-    } else {
-      return true;
+  private findWinState() {
+    for (let i = 0; i < TicTacToeRoom.winStates.length; i++) {
+      const ws = TicTacToeRoom.winStates[i];
+      const gs = this.gameState;
+      if (gs[ws[0]] === gs[ws[1]] && gs[ws[1]] === gs[ws[2]]) {
+        this.winState = ws;
+      }
     }
-  }
-
-  private isGameOver(): boolean {
-    return false;
-  }
-
-  processEvent(event: any, socket: any): void {
-    const playerId = this.getPlayerId(socket);
-    const newCellState = playerId + 1;
-    const tttEvent = <TicTacToeRequestEvent>event;
-    this.updateGameBoard(tttEvent, newCellState);
-    this.sendResponse(socket, tttEvent.cellNum, newCellState, playerId);
   }
 
   private updateGameBoard(event: TicTacToeRequestEvent, newCellState: number): void {
-    const cell = this.cellNumToCellIndex(event.cellNum);
-    if (this.gameState[cell.row][cell.col] !== 0) {
+    if (this.gameState[event.cellNum] !== 0) {
       throw new Error('Tampered data received.');
     }
-    this.gameState[cell.row][cell.col] = newCellState;
+    this.gameState[event.cellNum] = newCellState;
+    this.findWinState();
   }
 
   private sendResponse(socket: any, cellNum: number, newCellState: number, currMovePlayerId: number): void {
@@ -116,8 +126,17 @@ export class TicTacToeRoom implements IRoom {
     response.cellNum = cellNum;
     response.cellState = cellState;
     response.turn = playerTurn;
-    // caculate match state by determinig who won, if game has ended
-    // and then remove this room
+    if (this.isGameOver()) {
+      // if player turn is true,
+      // that means this player will play next move
+      // but if the game is in won state,
+      // it means that this player has lost
+      // by the last move by that other player
+      response.matchState = playerTurn ? 2 : 1;
+    } else {
+      response.matchState = 0;
+    }
+    response.winState = this.winState;
     return response;
   }
 
@@ -125,13 +144,4 @@ export class TicTacToeRoom implements IRoom {
     return this.players.findIndex(playerSocket => playerSocket.id === currSocket.id);
   }
 
-  private cellNumToCellIndex(cellNum: number): { row: number, col: number } {
-    const row = Math.floor(cellNum / 3);
-    const col = cellNum - row * 3;
-    return { row, col };
-  }
-
-  private cellIndexToCellNum(cellIndex: { row: number, col: number }): number {
-    return cellIndex.row * 3 + cellIndex.col;
-  }
 }

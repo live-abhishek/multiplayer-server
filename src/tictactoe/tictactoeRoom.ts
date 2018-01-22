@@ -89,22 +89,24 @@ export class TicTacToeRoom implements IRoom {
   }
 
   processEvent(event: any, socket: any): void {
-    const tttevent = <TicTacToeRequestEvent>event;
-    const cell = this.cellNumToCellIndex(tttevent.cellNum);
+    const playerId = this.getPlayerId(socket);
+    const newCellState = playerId + 1;
+    const tttEvent = <TicTacToeRequestEvent>event;
+    this.updateGameBoard(tttEvent, newCellState);
+    this.sendResponse(socket, tttEvent.cellNum, newCellState, playerId);
+  }
+
+  private updateGameBoard(event: TicTacToeRequestEvent, newCellState: number): void {
+    const cell = this.cellNumToCellIndex(event.cellNum);
     if (this.gameState[cell.row][cell.col] !== 0) {
       throw new Error('Tampered data received.');
     }
-    // set this based upon who made the move
-    const playerId = this.getPlayerId(socket);
-    const newCellState = playerId + 1;
     this.gameState[cell.row][cell.col] = newCellState;
-
-    this.sendResponse(socket, tttevent.cellNum, newCellState, playerId);
   }
 
-  private sendResponse(socket: any, cellNum: number, newCellState: number, currPlayerId: number): void {
+  private sendResponse(socket: any, cellNum: number, newCellState: number, currMovePlayerId: number): void {
     this.players.forEach((socket, idx) => {
-      const response = this.createResponse(cellNum, newCellState, currPlayerId !== idx);
+      const response = this.createResponse(cellNum, newCellState, currMovePlayerId !== idx);
       socket.emit('gameMoveResponse', response);
     });
   }

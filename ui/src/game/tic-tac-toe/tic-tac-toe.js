@@ -8,70 +8,75 @@ class TicTacToeBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+      board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       winningCells: []
     };
   }
 
-  handleBoardClick = () => {
-    // on click set cell [1][2] explicitly
-    let newBoard = [
-      [...this.state.board[0]],
-      [...this.state.board[1]],
-      [...this.state.board[2]]
-    ];
-    newBoard[1][2] = 1;
+  handleCellClick = () => {
+    // on click set cell [5] explicitly
+    let newBoard = [...this.state.board];
+    newBoard[5] = 1;
     this.setState({ board: newBoard });
-    let newWinningCells = [[1, 2], [0, 1]];
+    let newWinningCells = [5, 1];
     this.setState({ winningCells: newWinningCells });
   };
 
-  getCellClasses = (rowIndex, colIndex) => {
+  onCellMouseOver = (event) => {
+    let cell = event.target;
+    cell.className["cell-hover"] = true
+  }
+
+  onCellMouseOut = (event) => {
+    let cell = event.target;
+    console.log(cell.className);
+    delete cell.className["cell-hover"];
+  }
+
+  getCellClasses = (index) => {
     return classNames({
       'cell': true,
-      'cell-background-transition': this.state.winningCells.some(cell => cell[0] === rowIndex && cell[1] === colIndex)
+      'cell-background-transition': this.state.winningCells.some(cell => cell === index)
     });
   }
 
   render() {
     return (
       <div className="board">
-        {this.state.board.map((row, rowIndex) =>
-          row.map((cell, colIndex) => {
-            return (
-              <div key={`${rowIndex}-${colIndex}`} className={this.getCellClasses(rowIndex, colIndex)}>
-                <TransitionGroup appear>
-                  {cell === 0 && (
+        {this.state.board.map((cell, index) => {
+          return (
+            <div key={`${index}`} className={this.getCellClasses(index)}>
+              <TransitionGroup appear>
+                {cell === 0 && (
+                  <img
+                    src="https://image.ibb.co/c0q1Ew/transparent.png"
+                    alt=""
+                    className="cell-content-empty"
+                    onClick={this.handleCellClick}
+                  />
+                )}
+                {cell === 1 && (
+                  <Popout>
                     <img
-                      src="https://image.ibb.co/c0q1Ew/transparent.png"
+                      src="https://image.ibb.co/nDDDuw/circle_outline.png"
                       alt=""
-                      className="cell-content-empty"
-                      onClick={this.handleBoardClick}
+                      className='cell-content'
                     />
-                  )}
-                  {cell === 1 && (
-                    <Popout>
-                      <img
-                        src="https://image.ibb.co/nDDDuw/circle_outline.png"
-                        alt=""
-                        className='cell-content'
-                      />
-                    </Popout>
-                  )}
-                  {cell === 2 && (
-                    <Popout>
-                      <img
-                        src="https://image.ibb.co/jY0nMb/close.png"
-                        alt=""
-                        className='cell-content'
-                      />
-                    </Popout>
-                  )}
-                </TransitionGroup>
-              </div>
-            );
-          })
-        )}
+                  </Popout>
+                )}
+                {cell === 2 && (
+                  <Popout>
+                    <img
+                      src="https://image.ibb.co/jY0nMb/close.png"
+                      alt=""
+                      className='cell-content'
+                    />
+                  </Popout>
+                )}
+              </TransitionGroup>
+            </div>
+          );
+        })}
       </div>
     );
   }

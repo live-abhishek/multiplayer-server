@@ -9,7 +9,7 @@ export interface GameRequest {
 export class RoomManager {
   private static roomManager: RoomManager;
   private rooms: Array<IRoom> = [];
-  private playerRoomMap: any = {};
+  private playerRoomMap: { [key: string]: IRoom } = {};
   private constructor() {
   }
 
@@ -41,7 +41,7 @@ export class RoomManager {
 
   private addPlayerToRoom(room: IRoom, socket: any) {
     room.addPlayer(socket);
-    this.playerRoomMap[socket.id] = room.roomName;
+    this.playerRoomMap[socket.id] = room;
   }
 
   private removeRoom(room: IRoom) {
@@ -59,7 +59,12 @@ export class RoomManager {
     }
   }
 
-  public processGameEvent(socket: any, moveData: any) {
-
+  public processGameEvent(socket: any, moveEventData: any) {
+    const room = this.playerRoomMap[socket.id];
+    if (room && !room.isGameOver()) {
+      room.processEvent(moveEventData, socket);
+    } else {
+      throw new Error('Room not found');
+    }
   }
 }

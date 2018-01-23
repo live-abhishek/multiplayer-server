@@ -79,10 +79,10 @@ export class TicTacToeRoom implements IRoom {
 
   processEvent(event: any, socket: any): void {
     const playerId = this.getPlayerId(socket);
-    const newCellState = playerId + 1;
+    const cellNewState = playerId + 1;
     const tttEvent = <TicTacToeRequestEvent>event;
-    this.updateGameBoard(tttEvent, newCellState);
-    this.sendResponse(socket, tttEvent.cellNum, newCellState, playerId);
+    this.updateGameBoard(tttEvent, cellNewState);
+    this.sendResponse(socket, tttEvent.cellNum, cellNewState, playerId);
   }
 
   private startGame() {
@@ -100,7 +100,8 @@ export class TicTacToeRoom implements IRoom {
     for (let i = 0; i < TicTacToeRoom.winStates.length; i++) {
       const ws = TicTacToeRoom.winStates[i];
       const gs = this.gameState;
-      if (gs[ws[0]] === gs[ws[1]] && gs[ws[1]] === gs[ws[2]]) {
+      if (gs[ws[0]] !== 0 && gs[ws[1]] !== 0 && gs[ws[2]] !== 0 && // none of the winning states are 0
+        (gs[ws[0]] === gs[ws[1]] && gs[ws[1]] === gs[ws[2]])) { // all the three winning states are same
         this.winState = ws;
       }
     }

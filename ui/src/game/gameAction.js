@@ -1,5 +1,3 @@
-import { socket } from '../socketHelper/socketProvider';
-
 export function requestGame(gameType) {
   return {
     type: "GAME_REQUEST",

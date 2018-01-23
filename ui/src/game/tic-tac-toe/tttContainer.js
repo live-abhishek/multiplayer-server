@@ -1,6 +1,8 @@
 import React from 'react';
 import TicTacToe from './tic-tac-toe';
-import { connect } from './react-redux';
+import { connect } from 'react-redux';
+import { sendMove } from './tttAction'
+import { sendMoveRequest } from '../../socketHelper/socketTicTacToeHelper';
 
 const TicTacToeContainer = (props) => {
   return (
@@ -10,13 +12,16 @@ const TicTacToeContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    matchState
+    matchState: state.ttt
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    sendMove:(moveEventData) => {
+      sendMoveRequest(moveEventData);
+      dispatch(sendMove(moveEventData));
+    }
   }
 }
 

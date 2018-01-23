@@ -41,42 +41,46 @@ class TicTacToeBoard extends React.Component {
   }
 
   render() {
+    const { turn } = this.props.matchState;
     return (
-      <div className="board">
-        {this.state.board.map((cell, index) => {
-          return (
-            <div key={`${index}`} className={this.getCellClasses(index)}>
-              <TransitionGroup appear>
-                {cell === 0 && (
-                  <img
-                    src="https://image.ibb.co/c0q1Ew/transparent.png"
-                    alt=""
-                    className="cell-content-empty"
-                    onClick={this.handleCellClick}
-                  />
-                )}
-                {cell === 1 && (
-                  <Popout>
+      <div>
+        {turn ? <div>Your turn</div> : <div>Opponent's turn</div>}
+        <div className="board">
+          {this.state.board.map((cell, index) => {
+            return (
+              <div key={`${index}`} className={this.getCellClasses(index)}>
+                <TransitionGroup appear>
+                  {cell === 0 && (
                     <img
-                      src="https://image.ibb.co/nDDDuw/circle_outline.png"
+                      src="https://image.ibb.co/c0q1Ew/transparent.png"
                       alt=""
-                      className='cell-content'
+                      className="cell-content-empty"
+                      onClick={this.handleCellClick}
                     />
-                  </Popout>
-                )}
-                {cell === 2 && (
-                  <Popout>
-                    <img
-                      src="https://image.ibb.co/jY0nMb/close.png"
-                      alt=""
-                      className='cell-content'
-                    />
-                  </Popout>
-                )}
-              </TransitionGroup>
-            </div>
-          );
-        })}
+                  )}
+                  {cell === 1 && (
+                    <Popout>
+                      <img
+                        src="https://image.ibb.co/nDDDuw/circle_outline.png"
+                        alt=""
+                        className='cell-content'
+                      />
+                    </Popout>
+                  )}
+                  {cell === 2 && (
+                    <Popout>
+                      <img
+                        src="https://image.ibb.co/jY0nMb/close.png"
+                        alt=""
+                        className='cell-content'
+                      />
+                    </Popout>
+                  )}
+                </TransitionGroup>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

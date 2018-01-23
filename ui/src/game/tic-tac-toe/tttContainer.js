@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendMove:(moveEventData) => {
+    sendMove: (moveEventData) => {
       sendMoveRequest(moveEventData);
       dispatch(sendMove(moveEventData));
     }

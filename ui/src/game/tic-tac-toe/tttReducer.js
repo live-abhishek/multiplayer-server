@@ -1,7 +1,10 @@
-const initialState = {}
+const initialState = {
+  // "wait", "me", "opp"
+  turn: "wait"
+}
 
 export default (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case "INIT_TIC_TAC_TOE_MATCH":
       state = {
         ...state,

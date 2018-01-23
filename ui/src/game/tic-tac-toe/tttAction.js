@@ -1,20 +1,20 @@
-export function initializeMatch(matchInitData){
+export function initializeMatch(matchInitData) {
   return {
     type: "INIT_TIC_TAC_TOE_MATCH",
     payload: matchInitData
   }
 }
 
-export function sendMove(gameData) {
+export function sendMove(moveEventData) {
   return {
     type: "SEND_MOVE",
-    payload: gameData
+    payload: moveEventData
   }
 }
 
-export function gameMoveResponse(gameData){
-  return{
+export function gameMoveResponse(moveRespData) {
+  return {
     type: "GAME_MOVE_RESPONSE",
-    payload: gameData
+    payload: moveRespData
   }
 }

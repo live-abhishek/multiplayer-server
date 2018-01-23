@@ -1,5 +1,5 @@
 const initialState = {
-  gameState: 'MENU',
+  pageState: 'MENU',
   gameType: null
 }
 
@@ -8,13 +8,13 @@ export default (state = initialState, action) => {
     case "GAME_REQUEST":
       state = {
         ...state,
-        gameState: 'WAITING'
+        pageState: 'WAITING'
       }
       break;
     case "GAME_REQUEST_FULFILLED":
       state = {
         ...state,
-        gameState: 'FULFILLED',
+        pageState: 'FULFILLED',
         gameType: action.payload.gameType
       }
   }

@@ -3,24 +3,24 @@ import TicTacToe from './tic-tac-toe/tic-tac-toe';
 import GameMenu from './gameMenu';
 import CircularIndeterminate from './gameWaiting';
 import { connect } from 'react-redux';
-import gameAction from './gameAction';
-import socket from '../socketProvider';
+import { requestGame } from './gameAction';
+import { sendGameRequest } from '../socketHelper/socketProvider';
 
 const gameArea = (props) => {
   return (
     // <TicTacToe />
     <div>
-      {props.requestState === 'MENU' && <GameMenu requestHandler={props.requestGame} />}
-      {props.requestState === 'WAITING' && <CircularIndeterminate />}
-      {props.requestState === 'FULFILLED' && props.gameType === 'tictactoe' && <TicTacToe />}
-      {props.requestState === 'FULFILLED' && props.gameType === 'tictactoe2' && <div>TicTacToe2</div>}
+      {props.pageState === 'MENU' && <GameMenu requestHandler={props.requestGame} />}
+      {props.pageState === 'WAITING' && <CircularIndeterminate />}
+      {props.pageState === 'FULFILLED' && props.gameType === 'tictactoe' && <TicTacToe />}
+      {props.pageState === 'FULFILLED' && props.gameType === 'tictactoe2' && <div>TicTacToe2</div>}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    gameState: state.game.requestState,
+    pageState: state.game.pageState,
     gameType: state.game.gameType
   }
 }
@@ -28,8 +28,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     requestGame: (gameType) => {
-      socket.emit('gameRequest', { gameType })
-      dispatch(gameAction.requestGame(gameType));
+      sendGameRequest({ gameType });
+      dispatch(requestGame(gameType));
     }
   }
 }

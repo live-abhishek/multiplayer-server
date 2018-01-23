@@ -7,7 +7,7 @@ export interface GameRequest {
 }
 
 export class RoomManager {
-  static roomManager: RoomManager;
+  private static roomManager: RoomManager;
   private rooms: Array<IRoom> = [];
   private playerRoomMap: any = {};
   private constructor() {

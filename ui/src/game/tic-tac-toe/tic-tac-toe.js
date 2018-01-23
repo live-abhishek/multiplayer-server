@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
 
+const TIC_TAC_TOE = 'tictactoe';
+
 class TicTacToeBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -13,24 +15,13 @@ class TicTacToeBoard extends React.Component {
     };
   }
 
-  handleCellClick = () => {
-    // on click set cell [5] explicitly
-    let newBoard = [...this.state.board];
-    newBoard[5] = 1;
-    this.setState({ board: newBoard });
-    let newWinningCells = [5, 1];
-    this.setState({ winningCells: newWinningCells });
-  };
-
-  onCellMouseOver = (event) => {
-    let cell = event.target;
-    cell.className["cell-hover"] = true
-  }
-
-  onCellMouseOut = (event) => {
-    let cell = event.target;
-    console.log(cell.className);
-    delete cell.className["cell-hover"];
+  handleCellClick = index => () => {
+    let moveEventData = {
+      gameType: TIC_TAC_TOE,
+      eventType: 'move',
+      cellNum: index
+    };
+    this.props.onCellClick(moveEventData);
   }
 
   getCellClasses = (index) => {
@@ -55,7 +46,7 @@ class TicTacToeBoard extends React.Component {
                       src="https://image.ibb.co/c0q1Ew/transparent.png"
                       alt=""
                       className="cell-content-empty"
-                      onClick={this.handleCellClick}
+                      onClick={this.handleCellClick(index)}
                     />
                   )}
                   {cell === 1 && (

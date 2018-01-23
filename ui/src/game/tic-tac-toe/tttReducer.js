@@ -13,7 +13,8 @@ export default (state = initialState, action) => {
       break;
     case "SEND_MOVE":
       state = {
-        ...state
+        ...state,
+        turn: false
       }
       break;
   }

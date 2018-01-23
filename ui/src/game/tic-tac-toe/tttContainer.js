@@ -6,7 +6,7 @@ import { sendMoveRequest } from '../../socketHelper/socketTicTacToeHelper';
 
 const TicTacToeContainer = (props) => {
   return (
-    <TicTacToe matchState={props.responseState} />
+    <TicTacToe matchState={props.matchState} onCellClick={props.sendMove} />
   );
 }
 

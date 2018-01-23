@@ -1,6 +1,13 @@
 const initialState = {
   // "wait", "me", "opp"
-  turn: "wait"
+  turn: "wait",
+  board: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+}
+
+const updateBoard = (oldBoard, cellNum, cellState) => {
+  const newBoard = [...oldBoard];
+  newBoard[cellNum] = cellState;
+  return newBoard;
 }
 
 export default (state = initialState, action) => {
@@ -17,6 +24,15 @@ export default (state = initialState, action) => {
         turn: false
       }
       break;
+    case "GAME_MOVE_RESPONSE":
+      const payload = action.payload;
+      state = {
+        ...state,
+        board: updateBoard(state.board, payload.cellNum, payload.cellState),
+        gameType: payload.gameType,
+        matchPos: payload.matchState,
+        turn: payload.turn
+      }
   }
   return state;
 }

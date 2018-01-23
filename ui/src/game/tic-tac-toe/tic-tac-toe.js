@@ -10,12 +10,14 @@ class TicTacToeBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       winningCells: []
     };
   }
 
   handleCellClick = index => () => {
+    if (!this.props.matchState.turn) {
+      return;
+    }
     let moveEventData = {
       gameType: TIC_TAC_TOE,
       eventType: 'move',
@@ -32,12 +34,12 @@ class TicTacToeBoard extends React.Component {
   }
 
   render() {
-    const { turn } = this.props.matchState;
+    const { turn, board, matchPos } = this.props.matchState;
     return (
       <div>
         {turn ? <div>Your turn</div> : <div>Opponent's turn</div>}
         <div className="board">
-          {this.state.board.map((cell, index) => {
+          {board.map((cell, index) => {
             return (
               <div key={`${index}`} className={this.getCellClasses(index)}>
                 <TransitionGroup appear>

@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
       state = {
         ...state,
         pageState: 'FULFILLED',
-        gameType: action.payload.gameType
+        responseState: action.payload
       }
   }
   return state;

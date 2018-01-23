@@ -1,5 +1,5 @@
 import React from 'react';
-import TicTacToe from './tic-tac-toe/tic-tac-toe';
+import TicTacToeContainer from './tic-tac-toe/tttContainer';
 import GameMenu from './gameMenu';
 import CircularIndeterminate from './gameWaiting';
 import { connect } from 'react-redux';
@@ -12,8 +12,8 @@ const gameArea = (props) => {
     <div>
       {props.pageState === 'MENU' && <GameMenu requestHandler={props.requestGame} />}
       {props.pageState === 'WAITING' && <CircularIndeterminate />}
-      {props.pageState === 'FULFILLED' && props.gameType === 'tictactoe' && <TicTacToe />}
-      {props.pageState === 'FULFILLED' && props.gameType === 'tictactoe2' && <div>TicTacToe2</div>}
+      {props.pageState === 'FULFILLED' && props.responseState.gameType === 'tictactoe' && <TicTacToeContainer responseState={props.responseState} />}
+      {props.pageState === 'FULFILLED' && props.responseState.gameType === 'tictactoe2' && <div>TicTacToe2</div>}
     </div>
   );
 };
@@ -21,7 +21,7 @@ const gameArea = (props) => {
 const mapStateToProps = (state) => {
   return {
     pageState: state.game.pageState,
-    gameType: state.game.gameType
+    responseState: state.game.responseState
   }
 }
 

@@ -9,10 +9,10 @@ export interface TicTacToeRequestEvent {
 }
 
 enum ResponseMatchResultState {
-  inpro,
-  win,
-  lost,
-  tied
+  inpro = 'inpro',
+  win = 'win',
+  lost = 'lost',
+  tied = 'tied'
 }
 
 export class TicTacToeResponseEvent {
@@ -53,7 +53,7 @@ export class TicTacToeRoom implements IRoom {
    * 2 = X - cell markde by player 2
    */
   private boardState: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  private history: Array<{ cellNum: number, cellState: number }>;
+  private history: Array<{ cellNum: number, cellState: number }> = [];
 
   constructor(roomName: string) {
     this.roomName = roomName;
@@ -89,7 +89,7 @@ export class TicTacToeRoom implements IRoom {
       socket.emit('gameRequestFulfilled',
         {
           gameType: this.gameType,
-          turn: idx === this.turn // start with the 0th player
+          myTurn: idx === this.turn // start with the 0th player
         }
       );
     });
@@ -123,7 +123,7 @@ export class TicTacToeRoom implements IRoom {
   private sendResponse(): void {
     const lastMove = this.history[this.history.length - 1];
     this.players.forEach((socket, idx) => {
-      const response = this.createResponse(lastMove.cellNum, lastMove.cellState, this.turn !== idx);
+      const response = this.createResponse(lastMove.cellNum, lastMove.cellState, this.turn === idx);
       socket.emit('gameMoveResponse', response);
     });
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import TicTacToe from './tic-tac-toe';
 import { connect } from 'react-redux';
 import { sendMove } from './tttAction'
-import { sendMoveRequest } from '../../socketHelper/socketTicTacToeHelper';
+import { sendMoveRequest } from '../../socketHelper/socketTicTacToeProvider';
 
 const TicTacToeContainer = (props) => {
   return (

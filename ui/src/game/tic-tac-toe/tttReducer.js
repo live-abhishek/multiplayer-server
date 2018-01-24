@@ -10,12 +10,16 @@ const updateBoard = (oldBoard, cellNum, cellState) => {
   return newBoard;
 }
 
+const calculateWinningState = (board) => {
+
+}
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case "INIT_TIC_TAC_TOE_MATCH":
       state = {
         ...state,
-        turn: action.payload.turn
+        turn: action.payload.myTurn
       }
       break;
     case "SEND_MOVE":
@@ -31,7 +35,7 @@ export default (state = initialState, action) => {
         board: updateBoard(state.board, payload.cellNum, payload.cellState),
         gameType: payload.gameType,
         matchPos: payload.matchState,
-        turn: payload.turn
+        turn: payload.myTurn
       }
   }
   return state;

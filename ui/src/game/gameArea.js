@@ -4,9 +4,7 @@ import GameMenu from './gameMenu';
 import CircularIndeterminate from './gameWaiting';
 import { connect } from 'react-redux';
 import { requestGame } from './gameAction';
-// Calling this on the main menu to register all socket events
-import { socket } from '../socketHelper/socketRegisterer';
-import { sendGameRequest } from '../socketHelper/socketHelper';
+import { sendGameRequest } from '../socketHelper/socketProvider';
 
 const gameArea = (props) => {
   return (

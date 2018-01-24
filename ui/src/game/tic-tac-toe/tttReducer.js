@@ -19,13 +19,13 @@ export default (state = initialState, action) => {
     case "INIT_TIC_TAC_TOE_MATCH":
       state = {
         ...state,
-        turn: action.payload.myTurn
+        turn: action.payload.myTurn ? "me" : "opp"
       }
       break;
     case "SEND_MOVE":
       state = {
         ...state,
-        turn: false
+        turn: "wait"
       }
       break;
     case "GAME_MOVE_RESPONSE":
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
         board: updateBoard(state.board, payload.cellNum, payload.cellState),
         gameType: payload.gameType,
         matchPos: payload.matchState,
-        turn: payload.myTurn
+        turn: payload.myTurn ? "me" : "opp"
       }
   }
   return state;

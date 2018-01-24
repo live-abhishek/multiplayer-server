@@ -3,6 +3,7 @@ import { TransitionGroup } from "react-transition-group";
 import classNames from 'classnames';
 import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
+import LinearIndeterminate from "../../animations/linearIndeterminate";
 
 const TIC_TAC_TOE = 'tictactoe';
 
@@ -15,7 +16,7 @@ class TicTacToeBoard extends React.Component {
   }
 
   handleCellClick = index => () => {
-    if (!this.props.matchState.turn) {
+    if (this.props.matchState.turn !== 'me') {
       return;
     }
     let moveEventData = {
@@ -33,11 +34,23 @@ class TicTacToeBoard extends React.Component {
     });
   }
 
+  getTurnMessage = (turn) => {
+    if (turn === 'me') {
+      return (<div>Your turn</div>);
+    } else if(turn === 'opp') {
+      return (<div>Opponent's turn</div>);
+    } else if(turn === 'wait') {
+      return (<LinearIndeterminate/>);
+    }
+  }
+
   render() {
     const { turn, board, matchPos } = this.props.matchState;
     return (
       <div>
-        {turn ? <div>Your turn</div> : <div>Opponent's turn</div>}
+        <div className="turn-msg">
+          {this.getTurnMessage(turn)}
+        </div>
         <div className="board">
           {board.map((cell, index) => {
             return (

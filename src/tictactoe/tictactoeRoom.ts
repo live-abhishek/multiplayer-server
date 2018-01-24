@@ -8,27 +8,25 @@ export interface TicTacToeRequestEvent {
   cellNum: number;
 }
 
+enum ResponseMatchResultState {
+  inpro,
+  win,
+  lost,
+  tied
+}
+
 export class TicTacToeResponseEvent {
-  gameType: string = TIC_TAC_TOE;
+  readonly gameType: string = TIC_TAC_TOE;
   cellNum: number;
   cellState: number;
-  /**
-   * Represents whose turn is it
-   * 'true' when it is your turn
-   * otherwise false
-   */
-  turn: boolean;
-  /**
-   * Represents the state of the tictactoe match
-   * 0 - match is in progress
-   * 1 - you won
-   * 2 - you lost
-   */
-  matchState: number;
-  /**
-   * This is required if matchState is not 0
-   */
-  winState?: Array<number>;
+  myTurn: boolean;
+  matchResult: ResponseMatchResultState = ResponseMatchResultState.inpro;
+}
+
+enum RoomMatchResultState {
+  inpro,
+  result,
+  tied
 }
 
 export class TicTacToeRoom implements IRoom {
@@ -45,7 +43,8 @@ export class TicTacToeRoom implements IRoom {
 
   gameType: string = TIC_TAC_TOE;
   players: Array<any> = [];
-  winState: Array<number>;
+  turn: number = 0;
+  roomMatchResult: RoomMatchResultState = RoomMatchResultState.inpro;
   readonly roomName: string;
   /**
    * Represents the state of the tictactoe board
@@ -53,7 +52,8 @@ export class TicTacToeRoom implements IRoom {
    * 1 = O - cell marked by player 1
    * 2 = X - cell markde by player 2
    */
-  private gameState: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  private boardState: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  private history: Array<{ cellNum: number, cellState: number }>;
 
   constructor(roomName: string) {
     this.roomName = roomName;
@@ -70,7 +70,7 @@ export class TicTacToeRoom implements IRoom {
   }
 
   isGameOver(): boolean {
-    return this.winState ? true : false;
+    return this.roomMatchResult === RoomMatchResultState.inpro ? false : true;
   }
 
   isAvailable(): boolean {
@@ -78,66 +78,68 @@ export class TicTacToeRoom implements IRoom {
   }
 
   processEvent(event: any, socket: any): void {
-    const playerId = this.getPlayerId(socket);
-    const cellNewState = playerId + 1;
-    const tttEvent = <TicTacToeRequestEvent>event;
-    this.updateGameBoard(tttEvent, cellNewState);
-    this.sendResponse(socket, tttEvent.cellNum, cellNewState, playerId);
+    this.updateGameBoard(event, socket);
+    this.turn = (this.turn + 1) % 2; // after updating game-board give turn to next player
+    this.sendResponse();
   }
 
   private startGame() {
+    this.turn = 0; // set that 1st player to make the move is 0th player
     this.players.forEach((socket, idx) => {
       socket.emit('gameRequestFulfilled',
         {
           gameType: this.gameType,
-          turn: ((idx % 2) === 0)
+          turn: idx === this.turn // start with the 0th player
         }
       );
     });
   }
 
-  private findWinState() {
+  private findMatchResult() {
+    const gs = this.boardState;
+    if (gs.every(cell => cell !== 0)) {
+      this.roomMatchResult = RoomMatchResultState.tied;
+    }
     for (let i = 0; i < TicTacToeRoom.winStates.length; i++) {
       const ws = TicTacToeRoom.winStates[i];
-      const gs = this.gameState;
       if (gs[ws[0]] !== 0 && gs[ws[1]] !== 0 && gs[ws[2]] !== 0 && // none of the winning states are 0
         (gs[ws[0]] === gs[ws[1]] && gs[ws[1]] === gs[ws[2]])) { // all the three winning states are same
-        this.winState = ws;
+        this.roomMatchResult = RoomMatchResultState.result;
       }
     }
   }
 
-  private updateGameBoard(event: TicTacToeRequestEvent, newCellState: number): void {
-    if (this.gameState[event.cellNum] !== 0) {
+  private updateGameBoard(event: any, socket: any): void {
+    const cellNewState = this.getPlayerId(socket) + 1;
+    const tttEvent = <TicTacToeRequestEvent>event;
+    if (this.boardState[event.cellNum] !== 0) {
       throw new Error('Tampered data received.');
     }
-    this.gameState[event.cellNum] = newCellState;
-    this.findWinState();
+    this.boardState[event.cellNum] = cellNewState;
+    this.history.push({ cellNum: event.cellNum, cellState: cellNewState });
+    this.findMatchResult();
   }
 
-  private sendResponse(socket: any, cellNum: number, newCellState: number, currMovePlayerId: number): void {
+  private sendResponse(): void {
+    const lastMove = this.history[this.history.length - 1];
     this.players.forEach((socket, idx) => {
-      const response = this.createResponse(cellNum, newCellState, currMovePlayerId !== idx);
+      const response = this.createResponse(lastMove.cellNum, lastMove.cellState, this.turn !== idx);
       socket.emit('gameMoveResponse', response);
     });
   }
 
-  private createResponse(cellNum: number, cellState: number, playerTurn: boolean): TicTacToeResponseEvent {
+  private createResponse(cellNum: number, cellState: number, thisPlayerTurn: boolean): TicTacToeResponseEvent {
     const response = new TicTacToeResponseEvent();
     response.cellNum = cellNum;
     response.cellState = cellState;
-    response.turn = playerTurn;
-    if (this.isGameOver()) {
-      // if player turn is true,
-      // that means this player will play next move
-      // but if the game is in won state,
-      // it means that this player has lost
-      // by the last move by that other player
-      response.matchState = playerTurn ? 2 : 1;
+    response.myTurn = thisPlayerTurn;
+    if (this.roomMatchResult === RoomMatchResultState.result) {
+      response.matchResult = thisPlayerTurn ? ResponseMatchResultState.lost : ResponseMatchResultState.win;
+    } else if (this.roomMatchResult === RoomMatchResultState.tied) {
+      response.matchResult = ResponseMatchResultState.tied;
     } else {
-      response.matchState = 0;
+      response.matchResult = ResponseMatchResultState.inpro;
     }
-    response.winState = this.winState;
     return response;
   }
 

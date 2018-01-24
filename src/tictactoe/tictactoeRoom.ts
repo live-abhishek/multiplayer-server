@@ -12,7 +12,8 @@ enum ResponseMatchResultState {
   inpro = 'inpro',
   win = 'win',
   lost = 'lost',
-  tied = 'tied'
+  tied = 'tied',
+  disconnected = 'disconnected'
 }
 
 export class TicTacToeResponseEvent {
@@ -26,7 +27,8 @@ export class TicTacToeResponseEvent {
 enum RoomMatchResultState {
   inpro,
   result,
-  tied
+  tied,
+  disconnected
 }
 
 export class TicTacToeRoom implements IRoom {
@@ -45,6 +47,7 @@ export class TicTacToeRoom implements IRoom {
   players: Array<any> = [];
   turn: number = 0;
   roomMatchResult: RoomMatchResultState = RoomMatchResultState.inpro;
+  roomClosed: boolean = false;
   readonly roomName: string;
   /**
    * Represents the state of the tictactoe board
@@ -78,12 +81,28 @@ export class TicTacToeRoom implements IRoom {
   }
 
   processEvent(event: any, socket: any): void {
+    if (this.isRoomClosed()) {
+      return;
+    }
     this.updateGameBoard(event, socket);
     this.turn = (this.turn + 1) % 2; // after updating game-board give turn to next player
     this.sendResponse();
   }
 
+  handleDisconnection(socket: any): void {
+    this.players.filter(player => player.id !== socket.id)
+      .forEach(player => player.emit('playerDisconnected', { gameType: this.gameType, matchResult: 'disconnected' }));
+    this.roomClosed = true;
+  }
+
+  isRoomClosed(): boolean {
+    return this.roomClosed;
+  }
+
   private startGame() {
+    if (this.isRoomClosed()) {
+      return;
+    }
     this.turn = 0; // set that 1st player to make the move is 0th player
     this.players.forEach((socket, idx) => {
       socket.emit('gameRequestFulfilled',

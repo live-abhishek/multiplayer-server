@@ -9,4 +9,6 @@ export interface IRoom {
   isGameOver(): boolean;
   isAvailable(): boolean;
   processEvent(event: any, socket: any): void;
+  handleDisconnection(socket: any): void;
+  isRoomClosed(): boolean;
 }

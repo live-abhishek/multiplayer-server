@@ -16,6 +16,11 @@ export class RoomManager {
   static getRoomManager(): RoomManager {
     if (!RoomManager.roomManager) {
       RoomManager.roomManager = new RoomManager();
+      setInterval(() => {
+        RoomManager.roomManager.rooms
+          .filter(room => room.isRoomClosed())
+          .forEach(room => RoomManager.roomManager.removeRoom(room));
+      }, 1000 * 60 * 5);
     }
     return RoomManager.roomManager;
   }
@@ -67,6 +72,16 @@ export class RoomManager {
       room.processEvent(moveEventData, socket);
     } else if (room && room.isGameOver()) {
       throw new Error('Game over in room');
+    } else {
+      throw new Error('Room not found');
+    }
+  }
+
+  public handleDisconnection(socket: any) {
+    console.log('disconnected: ', socket.id);
+    const room = this.playerRoomMap[socket.id];
+    if (room) {
+      room.handleDisconnection(socket);
     } else {
       throw new Error('Room not found');
     }

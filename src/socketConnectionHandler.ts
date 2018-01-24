@@ -14,4 +14,7 @@ export const socketConnectionHandler = (socket: any) => {
   socket.on('gameMove', (data: any) => {
     roomManager.processGameEvent(socket, data);
   });
+  socket.on('disconnect', () => {
+    roomManager.handleDisconnection(socket);
+  });
 };

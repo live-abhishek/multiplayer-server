@@ -51,6 +51,7 @@ export class RoomManager {
   }
 
   public processGameRequest(socket: any, requestData: GameRequest) {
+    console.log('requested by: ', socket.id);
     const availableRoom = this.rooms.find(room => room.gameType === requestData.gameType && room.isAvailable());
     if (availableRoom) {
       this.addPlayerToRoom(availableRoom, socket);
@@ -60,9 +61,12 @@ export class RoomManager {
   }
 
   public processGameEvent(socket: any, moveEventData: any) {
+    console.log('move by: ', socket.id);
     const room = this.playerRoomMap[socket.id];
     if (room && !room.isGameOver()) {
       room.processEvent(moveEventData, socket);
+    } else if (room && room.isGameOver()) {
+      throw new Error('Game over in room');
     } else {
       throw new Error('Room not found');
     }

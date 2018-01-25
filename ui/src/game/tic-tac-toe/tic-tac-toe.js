@@ -37,10 +37,10 @@ class TicTacToeBoard extends React.Component {
   getTurnMessage = (turn) => {
     if (turn === 'me') {
       return (<div>Your turn</div>);
-    } else if(turn === 'opp') {
+    } else if (turn === 'opp') {
       return (<div>Opponent's turn</div>);
-    } else if(turn === 'wait') {
-      return (<LinearIndeterminate/>);
+    } else if (turn === 'wait') {
+      return (<LinearIndeterminate />);
     }
   }
 
@@ -87,6 +87,7 @@ class TicTacToeBoard extends React.Component {
             );
           })}
         </div>
+        {}
       </div>
     );
   }

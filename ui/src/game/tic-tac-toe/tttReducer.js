@@ -34,9 +34,17 @@ export default (state = initialState, action) => {
         ...state,
         board: updateBoard(state.board, payload.cellNum, payload.cellState),
         gameType: payload.gameType,
-        matchPos: payload.matchState,
+        matchPos: payload.matchResult,
         turn: payload.myTurn ? "me" : "opp"
       }
+      break;
+    case "DISCONNECTED":
+      state = {
+        ...state,
+        gameType: action.payload.gameType,
+        matchPos: action.payload.matchResult
+      }
+      break;
   }
   return state;
 }

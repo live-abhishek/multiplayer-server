@@ -18,3 +18,10 @@ export function gameMoveResponse(moveRespData) {
     payload: moveRespData
   }
 }
+
+export function playerDisconnected(disconnectionData) {
+  return {
+    type: "DISCONNECTED",
+    payload: disconnectionData
+  }
+}

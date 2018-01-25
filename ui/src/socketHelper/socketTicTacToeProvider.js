@@ -1,5 +1,9 @@
 import store from '../store';
-import { initializeMatch, gameMoveResponse } from '../game/tic-tac-toe/tttAction';
+import {
+  initializeMatch,
+  gameMoveResponse,
+  playerDisconnected
+} from '../game/tic-tac-toe/tttAction';
 
 const TIC_TAC_TOE = 'tictactoe';
 let mainSocket;
@@ -15,6 +19,12 @@ export const tictactoeSocketEventRegister = (socket) => {
   socket.on('gameMoveResponse', (moveRespData) => {
     if (moveRespData.gameType === TIC_TAC_TOE) {
       store.dispatch(gameMoveResponse(moveRespData));
+    }
+  });
+
+  socket.on('playerDisconnected', (disconnectionData) => {
+    if (disconnectionData.gameType === TIC_TAC_TOE) {
+      store.dispatch(playerDisconnected(disconnectionData));
     }
   });
 }

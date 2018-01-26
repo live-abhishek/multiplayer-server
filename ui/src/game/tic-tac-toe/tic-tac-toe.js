@@ -28,9 +28,10 @@ class TicTacToeBoard extends React.Component {
   }
 
   getCellClasses = (index) => {
+    const { winState } = this.props.matchState;
     return classNames({
       'cell': true,
-      'cell-background-transition': this.state.winningCells.some(cell => cell === index)
+      'cell-background-transition': winState.some(cell => cell === index)
     });
   }
 

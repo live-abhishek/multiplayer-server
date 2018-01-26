@@ -82,8 +82,6 @@ export class RoomManager {
     const room = this.playerRoomMap[socket.id];
     if (room) {
       room.handleDisconnection(socket);
-    } else {
-      throw new Error('Room not found');
     }
   }
 }

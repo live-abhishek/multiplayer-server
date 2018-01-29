@@ -75,9 +75,9 @@ export class RoomManager {
     if (room && !room.isGameOver()) {
       room.processEvent(moveEventData, socket);
     } else if (room && room.isGameOver()) {
-      throw new Error('Game over in room');
+      logger.error('Game over in room');
     } else {
-      throw new Error('Room not found');
+      logger.error('Room not found');
     }
   }
 

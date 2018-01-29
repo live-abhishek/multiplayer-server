@@ -1,4 +1,5 @@
 import { IRoom } from '../iRoom';
+import { logger } from '../bunyan';
 
 const TIC_TAC_TOE: string = 'tictactoe';
 
@@ -64,7 +65,7 @@ export class TicTacToeRoom implements IRoom {
 
   addPlayer(socket: any): void {
     if (!this.isAvailable()) {
-      throw new Error('Cannot add anymore player in this room');
+      logger.error('Cannot add anymore player in this room');
     }
     this.players.push(socket);
     if (!this.isAvailable()) {
@@ -132,7 +133,7 @@ export class TicTacToeRoom implements IRoom {
     const cellNewState = this.getPlayerId(socket) + 1;
     const tttEvent = <TicTacToeRequestEvent>event;
     if (this.boardState[event.cellNum] !== 0) {
-      throw new Error('Tampered data received.');
+      logger.error('Tampered data received.');
     }
     this.boardState[event.cellNum] = cellNewState;
     this.history.push({ cellNum: event.cellNum, cellState: cellNewState });

@@ -7,6 +7,7 @@ import { Request, Response } from 'express';
 import { socketConnectionHandler } from './socketConnectionHandler';
 
 import { logger } from './bunyan';
+import { RoomManager } from './roomManager';
 
 const app = express();
 const server = require('http').Server(app);
@@ -21,6 +22,12 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/hello', (req: Request, res: Response) => {
   res.send('Hello');
+  res.end();
+});
+
+app.get('/rm', (req: Request, res: Response) => {
+  const rm = RoomManager.getRoomManager();
+  res.send(JSON.stringify(rm.getAllRoomInfo()));
   res.end();
 });
 

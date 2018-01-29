@@ -1,6 +1,7 @@
 import * as uuidv1 from 'uuid/v1';
 import { IRoom } from './iRoom';
 import { TicTacToeRoom } from './tictactoe/tictactoeRoom';
+import { logger } from './bunyan';
 
 export interface GameRequest {
   gameType: string;
@@ -19,7 +20,10 @@ export class RoomManager {
       setInterval(() => {
         RoomManager.roomManager.rooms
           .filter(room => room.isRoomClosed())
-          .forEach(room => RoomManager.roomManager.removeRoom(room));
+          .forEach(room => {
+            logger.info(`Removed room ${room.roomName}`);
+            RoomManager.roomManager.removeRoom(room);
+          });
       }, 1000 * 60 * 5);
     }
     return RoomManager.roomManager;
@@ -56,7 +60,7 @@ export class RoomManager {
   }
 
   public processGameRequest(socket: any, requestData: GameRequest) {
-    console.log('requested by: ', socket.id);
+    logger.info('requested by: ', socket.id, JSON.stringify(requestData));
     const availableRoom = this.rooms.find(room => room.gameType === requestData.gameType && room.isAvailable());
     if (availableRoom) {
       this.addPlayerToRoom(availableRoom, socket);
@@ -66,7 +70,7 @@ export class RoomManager {
   }
 
   public processGameEvent(socket: any, moveEventData: any) {
-    console.log('move by: ', socket.id);
+    logger.info('move by: ', socket.id, JSON.stringify(moveEventData));
     const room = this.playerRoomMap[socket.id];
     if (room && !room.isGameOver()) {
       room.processEvent(moveEventData, socket);
@@ -78,10 +82,22 @@ export class RoomManager {
   }
 
   public handleDisconnection(socket: any) {
-    console.log('disconnected: ', socket.id);
+    logger.info('disconnected: ', socket.id);
     const room = this.playerRoomMap[socket.id];
     if (room) {
       room.handleDisconnection(socket);
     }
   }
+
+  public getAllRoomInfo(): Array<{name: string, gameType: string, players: Array<string>}> {
+    const rooms = this.rooms.map(room => {
+      return {
+        name: room.roomName,
+        gameType: room.gameType,
+        players: room.players.map(player => player.id)
+      };
+    });
+    return rooms;
+  }
+
 }

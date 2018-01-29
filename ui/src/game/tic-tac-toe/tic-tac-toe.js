@@ -16,15 +16,17 @@ class TicTacToeBoard extends React.Component {
   }
 
   handleCellClick = index => () => {
-    if (this.props.matchState.turn !== 'me') {
+    const { turn, matchPos } = this.props.matchState;
+    if (matchPos === 'inpro' && turn === 'me') {
+      let moveEventData = {
+        gameType: TIC_TAC_TOE,
+        eventType: 'move',
+        cellNum: index
+      };
+      this.props.onCellClick(moveEventData);      
+    } else {
       return;
     }
-    let moveEventData = {
-      gameType: TIC_TAC_TOE,
-      eventType: 'move',
-      cellNum: index
-    };
-    this.props.onCellClick(moveEventData);
   }
 
   getCellClasses = (index) => {
@@ -50,7 +52,7 @@ class TicTacToeBoard extends React.Component {
     return (
       <div>
         <div className="turn-msg">
-          {this.getTurnMessage(turn)}
+          {this.getTurnMessage(turn, matchPos)}
         </div>
         <div className="board">
           {board.map((cell, index) => {

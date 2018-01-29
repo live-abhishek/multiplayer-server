@@ -11,7 +11,10 @@ const styles = theme => ({
 const CircularIndeterminate = (props) => {
   const { classes } = props;
   return (
-    <CircularProgress className={classes.progress} />
+    <div>
+      <div>Looking for an opponent. You can ask you friend to join.</div>
+      <CircularProgress className={classes.progress} />
+    </div>
   )
 }
 

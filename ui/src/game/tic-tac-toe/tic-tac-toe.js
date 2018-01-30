@@ -4,6 +4,7 @@ import classNames from "classnames";
 import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
 import LinearIndeterminate from "../../animations/linearIndeterminate";
+import TicTacToeScoreBoard from "./tttScoreBoard";
 
 const TIC_TAC_TOE = "tictactoe";
 
@@ -51,6 +52,9 @@ class TicTacToeBoard extends React.Component {
     const { turn, board, matchPos } = this.props.matchState;
     return (
       <div>
+        <div>
+          <TicTacToeScoreBoard won="0" lost="2" ties="2" />
+        </div>
         <div className="board">
           {board.map((cell, index) => {
             return (

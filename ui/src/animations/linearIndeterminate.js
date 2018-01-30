@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import { LinearProgress } from 'material-ui/Progress';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "material-ui/styles";
+import { LinearProgress } from "material-ui/Progress";
 
 const styles = {
   root: {
-    width: '100%',
-    verticalAlign: 'middle'
-  },
+    width: "100%",
+    verticalAlign: "middle"
+  }
 };
 
 function LinearIndeterminate(props) {
@@ -20,7 +20,7 @@ function LinearIndeterminate(props) {
 }
 
 LinearIndeterminate.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(LinearIndeterminate);

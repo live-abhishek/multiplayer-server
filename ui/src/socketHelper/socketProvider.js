@@ -1,22 +1,22 @@
-import io from 'socket.io-client';
-import store from '../store';
-import { requestGameFulfilled } from '../game/gameAction'
-import { tictactoeSocketEventRegister } from './socketTicTacToeProvider';
+import io from "socket.io-client";
+import store from "../store";
+import { requestGameFulfilled } from "../game/gameAction";
+import { tictactoeSocketEventRegister } from "./socketTicTacToeProvider";
 
 export const socket = io.connect();
 
-socket.on('gameRequestFulfilled', (data) => {
+socket.on("gameRequestFulfilled", data => {
   store.dispatch(requestGameFulfilled(data));
 });
 
-socket.on('message', (data) => {
+socket.on("message", data => {
   console.log(data);
 });
 
-socket.on('connect', () => console.log('Socket connection successful.'));
+socket.on("connect", () => console.log("Socket connection successful."));
 
 tictactoeSocketEventRegister(socket);
 
-export const sendGameRequest = (data) => {
-  socket.emit('gameRequest', data);
-}
+export const sendGameRequest = data => {
+  socket.emit("gameRequest", data);
+};

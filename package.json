@@ -10,13 +10,15 @@
     "build-ts": "tsc",
     "build-ui": "cd ui && npm install && npm run build",
     "watch-ts": "tsc -w",
-    "watch": "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\" ",
+    "watch":
+      "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\" ",
     "serve": "node dist/app.js",
     "start": "npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "serve-debug": "nodemon --inspect dist/app.js",
-    "watch-debug": "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run serve-debug\" "
+    "watch-debug":
+      "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run serve-debug\" "
   },
   "keywords": [],
   "author": "",

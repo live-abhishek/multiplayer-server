@@ -1,11 +1,11 @@
 import React from "react";
 import { TransitionGroup } from "react-transition-group";
-import classNames from 'classnames';
+import classNames from "classnames";
 import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
 import LinearIndeterminate from "../../animations/linearIndeterminate";
 
-const TIC_TAC_TOE = 'tictactoe';
+const TIC_TAC_TOE = "tictactoe";
 
 class TicTacToeBoard extends React.Component {
   constructor(props) {
@@ -17,43 +17,40 @@ class TicTacToeBoard extends React.Component {
 
   handleCellClick = index => () => {
     const { turn, matchPos } = this.props.matchState;
-    if (matchPos === 'inpro' && turn === 'me') {
+    if (matchPos === "inpro" && turn === "me") {
       let moveEventData = {
         gameType: TIC_TAC_TOE,
-        eventType: 'move',
+        eventType: "move",
         cellNum: index
       };
-      this.props.onCellClick(moveEventData);      
+      this.props.onCellClick(moveEventData);
     } else {
       return;
     }
-  }
+  };
 
-  getCellClasses = (index) => {
+  getCellClasses = index => {
     const { winState } = this.props.matchState;
     return classNames({
-      'cell': true,
-      'cell-background-transition': winState.some(cell => cell === index)
+      cell: true,
+      "cell-background-transition": winState.some(cell => cell === index)
     });
-  }
+  };
 
-  getTurnMessage = (turn) => {
-    if (turn === 'me') {
-      return (<div>Your turn</div>);
-    } else if (turn === 'opp') {
-      return (<div>Opponent's turn</div>);
-    } else if (turn === 'wait') {
-      return (<LinearIndeterminate />);
+  getTurnMessage = turn => {
+    if (turn === "me") {
+      return <div>Your turn</div>;
+    } else if (turn === "opp") {
+      return <div>Opponent's turn</div>;
+    } else if (turn === "wait") {
+      return <LinearIndeterminate />;
     }
-  }
+  };
 
   render() {
     const { turn, board, matchPos } = this.props.matchState;
     return (
       <div>
-        <div className="turn-msg">
-          {this.getTurnMessage(turn, matchPos)}
-        </div>
         <div className="board">
           {board.map((cell, index) => {
             return (
@@ -72,7 +69,7 @@ class TicTacToeBoard extends React.Component {
                       <img
                         src="https://image.ibb.co/nDDDuw/circle_outline.png"
                         alt=""
-                        className='cell-content'
+                        className="cell-content"
                       />
                     </Popout>
                   )}
@@ -81,7 +78,7 @@ class TicTacToeBoard extends React.Component {
                       <img
                         src="https://image.ibb.co/jY0nMb/close.png"
                         alt=""
-                        className='cell-content'
+                        className="cell-content"
                       />
                     </Popout>
                   )}
@@ -90,7 +87,7 @@ class TicTacToeBoard extends React.Component {
             );
           })}
         </div>
-        {}
+        <div className="turn-msg">{this.getTurnMessage(turn, matchPos)}</div>
       </div>
     );
   }

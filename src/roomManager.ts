@@ -1,7 +1,7 @@
-import * as uuidv1 from 'uuid/v1';
-import { IRoom } from './iRoom';
-import { TicTacToeRoom } from './tictactoe/tictactoeRoom';
-import { logger } from './bunyan';
+import * as uuidv1 from "uuid/v1";
+import { IRoom } from "./iRoom";
+import { TicTacToeRoom } from "./tictactoe/tictactoeRoom";
+import { logger } from "./bunyan";
 
 export interface GameRequest {
   gameType: string;
@@ -11,8 +11,7 @@ export class RoomManager {
   private static roomManager: RoomManager;
   private rooms: Array<IRoom> = [];
   private playerRoomMap: { [key: string]: IRoom } = {};
-  private constructor() {
-  }
+  private constructor() {}
 
   static getRoomManager(): RoomManager {
     if (!RoomManager.roomManager) {
@@ -32,11 +31,11 @@ export class RoomManager {
   private ctreateRoomByGameType(gameType: string): IRoom {
     let room: IRoom;
     switch (gameType) {
-      case 'tictactoe':
+      case "tictactoe":
         room = new TicTacToeRoom(uuidv1());
         break;
       default:
-        throw new Error('Unidentified game type');
+        throw new Error("Unidentified game type");
     }
     return room;
   }
@@ -55,13 +54,17 @@ export class RoomManager {
 
   private removeRoom(room: IRoom) {
     room.players.forEach(player => delete this.playerRoomMap[player.id]);
-    this.rooms = this.rooms.filter(curRoom => curRoom.roomName !== room.roomName);
+    this.rooms = this.rooms.filter(
+      curRoom => curRoom.roomName !== room.roomName
+    );
     room.players = [];
   }
 
   public processGameRequest(socket: any, requestData: GameRequest) {
-    logger.info('requested by: ', socket.id, JSON.stringify(requestData));
-    const availableRoom = this.rooms.find(room => room.gameType === requestData.gameType && room.isAvailable());
+    logger.info("requested by: ", socket.id, JSON.stringify(requestData));
+    const availableRoom = this.rooms.find(
+      room => room.gameType === requestData.gameType && room.isAvailable()
+    );
     if (availableRoom) {
       this.addPlayerToRoom(availableRoom, socket);
     } else {
@@ -70,26 +73,30 @@ export class RoomManager {
   }
 
   public processGameEvent(socket: any, moveEventData: any) {
-    logger.info('move by: ', socket.id, JSON.stringify(moveEventData));
+    logger.info("move by: ", socket.id, JSON.stringify(moveEventData));
     const room = this.playerRoomMap[socket.id];
     if (room && !room.isGameOver()) {
       room.processEvent(moveEventData, socket);
     } else if (room && room.isGameOver()) {
-      logger.error('Game over in room');
+      logger.error("Game over in room");
     } else {
-      logger.error('Room not found');
+      logger.error("Room not found");
     }
   }
 
   public handleDisconnection(socket: any) {
-    logger.info('disconnected: ', socket.id);
+    logger.info("disconnected: ", socket.id);
     const room = this.playerRoomMap[socket.id];
     if (room) {
       room.handleDisconnection(socket);
     }
   }
 
-  public getAllRoomInfo(): Array<{name: string, gameType: string, players: Array<string>}> {
+  public getAllRoomInfo(): Array<{
+    name: string;
+    gameType: string;
+    players: Array<string>;
+  }> {
     const rooms = this.rooms.map(room => {
       return {
         name: room.roomName,
@@ -99,5 +106,4 @@ export class RoomManager {
     });
     return rooms;
   }
-
 }

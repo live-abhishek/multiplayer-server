@@ -1,17 +1,17 @@
-import * as bunyan from 'bunyan';
+import * as bunyan from "bunyan";
 
 export const logger = bunyan.createLogger({
-  name: 'logger',
-  level: 'debug',
+  name: "logger",
+  level: "debug",
   streams: [
     {
-      level: 'trace',
+      level: "trace",
       stream: process.stdout
     },
     {
-      type: 'rotating-file',
+      type: "rotating-file",
       path: process.env.LOG_FILENAME,
-      period: '1d',
+      period: "1d",
       count: 10
     }
   ],

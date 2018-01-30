@@ -1,37 +1,43 @@
-import React from 'react';
-import TicTacToeContainer from './tic-tac-toe/tttContainer';
-import GameMenu from './gameMenu';
-import CircularIndeterminate from './gameWaiting';
-import { connect } from 'react-redux';
-import { requestGame } from './gameAction';
-import { sendGameRequest } from '../socketHelper/socketProvider';
+import React from "react";
+import TicTacToeContainer from "./tic-tac-toe/tttContainer";
+import GameMenu from "./gameMenu";
+import CircularIndeterminate from "./gameWaiting";
+import { connect } from "react-redux";
+import { requestGame } from "./gameAction";
+import { sendGameRequest } from "../socketHelper/socketProvider";
 
-const gameArea = (props) => {
+const gameArea = props => {
   return (
     // <TicTacToe />
     <div>
-      {props.pageState === 'MENU' && <GameMenu requestHandler={props.requestGame} />}
-      {props.pageState === 'WAITING' && <CircularIndeterminate />}
-      {props.pageState === 'FULFILLED' && props.responseState.gameType === 'tictactoe' && <TicTacToeContainer responseState={props.responseState} />}
-      {props.pageState === 'FULFILLED' && props.responseState.gameType === 'tictactoe2' && <div>TicTacToe2</div>}
+      {props.pageState === "MENU" && (
+        <GameMenu requestHandler={props.requestGame} />
+      )}
+      {props.pageState === "WAITING" && <CircularIndeterminate />}
+      {props.pageState === "FULFILLED" &&
+        props.responseState.gameType === "tictactoe" && (
+          <TicTacToeContainer responseState={props.responseState} />
+        )}
+      {props.pageState === "FULFILLED" &&
+        props.responseState.gameType === "tictactoe2" && <div>TicTacToe2</div>}
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     pageState: state.game.pageState,
     responseState: state.game.responseState
-  }
-}
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    requestGame: (gameType) => {
+    requestGame: gameType => {
       sendGameRequest({ gameType });
       dispatch(requestGame(gameType));
     }
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(gameArea);

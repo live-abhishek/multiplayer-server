@@ -1,7 +1,7 @@
-import { IRoom } from '../iRoom';
-import { logger } from '../bunyan';
+import { IRoom } from "../iRoom";
+import { logger } from "../bunyan";
 
-const TIC_TAC_TOE: string = 'tictactoe';
+const TIC_TAC_TOE: string = "tictactoe";
 
 export interface TicTacToeRequestEvent {
   gameType: string;
@@ -10,11 +10,11 @@ export interface TicTacToeRequestEvent {
 }
 
 enum ResponseMatchResultState {
-  inpro = 'inpro',
-  win = 'win',
-  lost = 'lost',
-  tied = 'tied',
-  disconnected = 'disconnected'
+  inpro = "inpro",
+  win = "win",
+  lost = "lost",
+  tied = "tied",
+  disconnected = "disconnected"
 }
 
 export class TicTacToeResponseEvent {
@@ -41,7 +41,7 @@ export class TicTacToeRoom implements IRoom {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6],
+    [2, 4, 6]
   ];
 
   gameType: string = TIC_TAC_TOE;
@@ -57,7 +57,7 @@ export class TicTacToeRoom implements IRoom {
    * 2 = X - cell markde by player 2
    */
   private boardState: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  private history: Array<{ cellNum: number, cellState: number }> = [];
+  private history: Array<{ cellNum: number; cellState: number }> = [];
 
   constructor(roomName: string) {
     this.roomName = roomName;
@@ -65,7 +65,7 @@ export class TicTacToeRoom implements IRoom {
 
   addPlayer(socket: any): void {
     if (!this.isAvailable()) {
-      logger.error('Cannot add anymore player in this room');
+      logger.error("Cannot add anymore player in this room");
     }
     this.players.push(socket);
     if (!this.isAvailable()) {
@@ -91,8 +91,12 @@ export class TicTacToeRoom implements IRoom {
   }
 
   handleDisconnection(socket: any): void {
-    this.players.filter(player => player.id !== socket.id)
-      .forEach(player => player.emit('playerDisconnected', { gameType: this.gameType, matchResult: 'disconnected' }));
+    this.players.filter(player => player.id !== socket.id).forEach(player =>
+      player.emit("playerDisconnected", {
+        gameType: this.gameType,
+        matchResult: "disconnected"
+      })
+    );
     this.roomClosed = true;
   }
 
@@ -106,12 +110,10 @@ export class TicTacToeRoom implements IRoom {
     }
     this.turn = 0; // set that 1st player to make the move is 0th player
     this.players.forEach((socket, idx) => {
-      socket.emit('gameRequestFulfilled',
-        {
-          gameType: this.gameType,
-          myTurn: idx === this.turn // start with the 0th player
-        }
-      );
+      socket.emit("gameRequestFulfilled", {
+        gameType: this.gameType,
+        myTurn: idx === this.turn // start with the 0th player
+      });
     });
   }
 
@@ -122,8 +124,13 @@ export class TicTacToeRoom implements IRoom {
     }
     for (let i = 0; i < TicTacToeRoom.winStates.length; i++) {
       const ws = TicTacToeRoom.winStates[i];
-      if (gs[ws[0]] !== 0 && gs[ws[1]] !== 0 && gs[ws[2]] !== 0 && // none of the winning states are 0
-        (gs[ws[0]] === gs[ws[1]] && gs[ws[1]] === gs[ws[2]])) { // all the three winning states are same
+      if (
+        gs[ws[0]] !== 0 &&
+        gs[ws[1]] !== 0 &&
+        gs[ws[2]] !== 0 && // none of the winning states are 0
+        (gs[ws[0]] === gs[ws[1]] && gs[ws[1]] === gs[ws[2]])
+      ) {
+        // all the three winning states are same
         this.roomMatchResult = RoomMatchResultState.result;
       }
     }
@@ -133,7 +140,7 @@ export class TicTacToeRoom implements IRoom {
     const cellNewState = this.getPlayerId(socket) + 1;
     const tttEvent = <TicTacToeRequestEvent>event;
     if (this.boardState[event.cellNum] !== 0) {
-      logger.error('Tampered data received.');
+      logger.error("Tampered data received.");
     }
     this.boardState[event.cellNum] = cellNewState;
     this.history.push({ cellNum: event.cellNum, cellState: cellNewState });
@@ -143,18 +150,28 @@ export class TicTacToeRoom implements IRoom {
   private sendResponse(): void {
     const lastMove = this.history[this.history.length - 1];
     this.players.forEach((socket, idx) => {
-      const response = this.createResponse(lastMove.cellNum, lastMove.cellState, this.turn === idx);
-      socket.emit('gameMoveResponse', response);
+      const response = this.createResponse(
+        lastMove.cellNum,
+        lastMove.cellState,
+        this.turn === idx
+      );
+      socket.emit("gameMoveResponse", response);
     });
   }
 
-  private createResponse(cellNum: number, cellState: number, thisPlayerTurn: boolean): TicTacToeResponseEvent {
+  private createResponse(
+    cellNum: number,
+    cellState: number,
+    thisPlayerTurn: boolean
+  ): TicTacToeResponseEvent {
     const response = new TicTacToeResponseEvent();
     response.cellNum = cellNum;
     response.cellState = cellState;
     response.myTurn = thisPlayerTurn;
     if (this.roomMatchResult === RoomMatchResultState.result) {
-      response.matchResult = thisPlayerTurn ? ResponseMatchResultState.lost : ResponseMatchResultState.win;
+      response.matchResult = thisPlayerTurn
+        ? ResponseMatchResultState.lost
+        : ResponseMatchResultState.win;
     } else if (this.roomMatchResult === RoomMatchResultState.tied) {
       response.matchResult = ResponseMatchResultState.tied;
     } else {
@@ -164,7 +181,8 @@ export class TicTacToeRoom implements IRoom {
   }
 
   private getPlayerId(currSocket: any): number {
-    return this.players.findIndex(playerSocket => playerSocket.id === currSocket.id);
+    return this.players.findIndex(
+      playerSocket => playerSocket.id === currSocket.id
+    );
   }
-
 }

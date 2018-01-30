@@ -1,4 +1,5 @@
 import { RoomManager, GameRequest } from "./roomManager";
+import { Player } from "./player";
 
 const roomManager = RoomManager.getRoomManager();
 
@@ -9,12 +10,12 @@ export const socketConnectionHandler = (socket: any) => {
     socket.send(`echo ${data}`);
   });
   socket.on("gameRequest", (data: GameRequest) => {
-    roomManager.processGameRequest(socket, data);
+    roomManager.processGameRequest(new Player(socket), data);
   });
   socket.on("gameMove", (data: any) => {
-    roomManager.processGameEvent(socket, data);
+    roomManager.processGameEvent(new Player(socket), data);
   });
   socket.on("disconnect", () => {
-    roomManager.handleDisconnection(socket);
+    roomManager.handleDisconnection(new Player(socket));
   });
 };

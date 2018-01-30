@@ -1,5 +1,6 @@
 import { IRoom } from "../iRoom";
 import { logger } from "../bunyan";
+import { Player } from "../player";
 
 const TIC_TAC_TOE: string = "tictactoe";
 
@@ -17,12 +18,13 @@ enum ResponseMatchResultState {
   disconnected = "disconnected"
 }
 
-export class TicTacToeResponseEvent {
+class TicTacToeResponseEvent {
   readonly gameType: string = TIC_TAC_TOE;
   cellNum: number;
   cellState: number;
   myTurn: boolean;
   matchResult: ResponseMatchResultState = ResponseMatchResultState.inpro;
+  score: { win: number; lost: number; ties: number };
 }
 
 enum RoomMatchResultState {
@@ -45,11 +47,15 @@ export class TicTacToeRoom implements IRoom {
   ];
 
   gameType: string = TIC_TAC_TOE;
-  players: Array<any> = [];
+  players: Array<Player> = [];
   turn: number = 0;
   roomMatchResult: RoomMatchResultState = RoomMatchResultState.inpro;
   roomClosed: boolean = false;
   readonly roomName: string;
+  // 1st index represents wins by 0th player
+  // 2nd index represents wins by 1st player
+  // 3rd index represents ties
+  private score: Array<number> = [0, 0, 0];
   /**
    * Represents the state of the tictactoe board
    * 0 - cell has not been played
@@ -63,11 +69,11 @@ export class TicTacToeRoom implements IRoom {
     this.roomName = roomName;
   }
 
-  addPlayer(socket: any): void {
+  addPlayer(player: Player): void {
     if (!this.isAvailable()) {
       logger.error("Cannot add anymore player in this room");
     }
-    this.players.push(socket);
+    this.players.push(player);
     if (!this.isAvailable()) {
       this.startGame();
     }
@@ -81,22 +87,24 @@ export class TicTacToeRoom implements IRoom {
     return this.players.length < 2;
   }
 
-  processEvent(event: any, socket: any): void {
+  processEvent(event: any, player: Player): void {
     if (this.isRoomClosed()) {
       return;
     }
-    this.updateGameBoard(event, socket);
+    this.updateGameBoard(event, player);
     this.turn = (this.turn + 1) % 2; // after updating game-board give turn to next player
     this.sendResponse();
   }
 
-  handleDisconnection(socket: any): void {
-    this.players.filter(player => player.id !== socket.id).forEach(player =>
-      player.emit("playerDisconnected", {
-        gameType: this.gameType,
-        matchResult: "disconnected"
-      })
-    );
+  handleDisconnection(player: Player): void {
+    this.players
+      .filter(itrPlayer => itrPlayer.id !== player.id)
+      .forEach(itrPlayer =>
+        itrPlayer.socket.emit("playerDisconnected", {
+          gameType: this.gameType,
+          matchResult: "disconnected"
+        })
+      );
     this.roomClosed = true;
   }
 
@@ -109,8 +117,8 @@ export class TicTacToeRoom implements IRoom {
       return;
     }
     this.turn = 0; // set that 1st player to make the move is 0th player
-    this.players.forEach((socket, idx) => {
-      socket.emit("gameRequestFulfilled", {
+    this.players.forEach((itrPlayer, idx) => {
+      itrPlayer.socket.emit("gameRequestFulfilled", {
         gameType: this.gameType,
         myTurn: idx === this.turn // start with the 0th player
       });
@@ -136,8 +144,8 @@ export class TicTacToeRoom implements IRoom {
     }
   }
 
-  private updateGameBoard(event: any, socket: any): void {
-    const cellNewState = this.getPlayerId(socket) + 1;
+  private updateGameBoard(event: any, player: Player): void {
+    const cellNewState = this.getPlayerId(player) + 1;
     const tttEvent = <TicTacToeRequestEvent>event;
     if (this.boardState[event.cellNum] !== 0) {
       logger.error("Tampered data received.");
@@ -149,13 +157,13 @@ export class TicTacToeRoom implements IRoom {
 
   private sendResponse(): void {
     const lastMove = this.history[this.history.length - 1];
-    this.players.forEach((socket, idx) => {
+    this.players.forEach((itrPlayer, idx) => {
       const response = this.createResponse(
         lastMove.cellNum,
         lastMove.cellState,
         this.turn === idx
       );
-      socket.emit("gameMoveResponse", response);
+      itrPlayer.socket.emit("gameMoveResponse", response);
     });
   }
 

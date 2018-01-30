@@ -3,6 +3,7 @@ import { IRoom } from "./iRoom";
 import { TicTacToeRoom } from "./tictactoe/tictactoeRoom";
 import { logger } from "./bunyan";
 import { Player } from "./player";
+import { AppConstants } from "./appConstants";
 
 export interface GameRequest {
   gameType: string;
@@ -32,7 +33,7 @@ export class RoomManager {
   private ctreateRoomByGameType(gameType: string): IRoom {
     let room: IRoom;
     switch (gameType) {
-      case "tictactoe":
+      case AppConstants.TIC_TAC_TOE:
         room = new TicTacToeRoom(uuidv1());
         break;
       default:
@@ -76,10 +77,8 @@ export class RoomManager {
   public processGameEvent(player: Player, moveEventData: any) {
     logger.info("move by: ", player.id, JSON.stringify(moveEventData));
     const room = this.playerRoomMap[player.id];
-    if (room && !room.isGameOver()) {
+    if (room) {
       room.processEvent(moveEventData, player);
-    } else if (room && room.isGameOver()) {
-      logger.error("Game over in room");
     } else {
       logger.error("Room not found");
     }

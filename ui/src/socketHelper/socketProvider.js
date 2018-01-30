@@ -5,7 +5,7 @@ import { tictactoeSocketEventRegister } from "./socketTicTacToeProvider";
 
 export const socket = io.connect();
 
-socket.on("gameRequestFulfilled", data => {
+socket.on("gameInit", data => {
   store.dispatch(requestGameFulfilled(data));
 });
 

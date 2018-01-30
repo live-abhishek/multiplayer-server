@@ -49,11 +49,15 @@ class TicTacToeBoard extends React.Component {
   };
 
   render() {
-    const { turn, board, matchPos } = this.props.matchState;
+    const { turn, board, matchPos, score } = this.props.matchState;
     return (
       <div>
         <div>
-          <TicTacToeScoreBoard won="0" lost="2" ties="2" />
+          <TicTacToeScoreBoard
+            won={score.won}
+            lost={score.lost}
+            ties={score.ties}
+          />
         </div>
         <div className="board">
           {board.map((cell, index) => {

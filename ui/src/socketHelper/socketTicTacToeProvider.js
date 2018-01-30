@@ -10,7 +10,7 @@ let mainSocket;
 
 export const tictactoeSocketEventRegister = socket => {
   mainSocket = socket;
-  socket.on("gameRequestFulfilled", matchInitData => {
+  socket.on("gameInit", matchInitData => {
     if (matchInitData.gameType === TIC_TAC_TOE) {
       store.dispatch(initializeMatch(matchInitData));
     }

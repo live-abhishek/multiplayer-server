@@ -1,0 +1,28 @@
+.fadeout-enter {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fadeout-enter.fadeout-enter-active {
+  animation: fadeout 2s forwards;
+}
+
+.fadeout-appear {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fadeout-appear.fadeout-appear-active {
+  animation: fadeout 2s forwards;
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.01;
+    transform: scale(1.5);
+  }
+}

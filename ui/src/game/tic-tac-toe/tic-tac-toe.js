@@ -11,22 +11,18 @@ const TIC_TAC_TOE = "tictactoe";
 class TicTacToeBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      winningCells: []
-    };
   }
 
   handleCellClick = index => () => {
+    this.setState({ myTurnStart: true })
     const { turn, matchPos } = this.props.matchState;
     if (matchPos === "inpro" && turn === "me") {
-      let moveEventData = {
+      const moveEventData = {
         gameType: TIC_TAC_TOE,
         eventType: "move",
         cellNum: index
       };
       this.props.onCellClick(moveEventData);
-    } else {
-      return;
     }
   };
 
@@ -38,16 +34,9 @@ class TicTacToeBoard extends React.Component {
     });
   };
 
-  getTurnMessage = () => {
+  getWaitMessage = () => {
     const { turn, matchPos } = this.props.matchState;
-    if (matchPos !== "inpro") {
-      return;
-    }
-    if (turn === "me") {
-      return <div>Your turn</div>;
-    } else if (turn === "opp") {
-      return <div>Opponent's turn</div>;
-    } else if (turn === "wait") {
+    if (matchPos === "inpro" && turn === "wait") {
       return <LinearIndeterminate />;
     }
   };
@@ -99,7 +88,7 @@ class TicTacToeBoard extends React.Component {
             );
           })}
         </div>
-        <div className="turn-msg">{this.getTurnMessage()}</div>
+        <div className="turn-msg">{this.getWaitMessage()}</div>
       </div>
     );
   }

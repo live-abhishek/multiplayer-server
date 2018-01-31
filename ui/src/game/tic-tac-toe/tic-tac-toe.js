@@ -38,7 +38,11 @@ class TicTacToeBoard extends React.Component {
     });
   };
 
-  getTurnMessage = turn => {
+  getTurnMessage = () => {
+    const { turn, matchPos } = this.props.matchState;
+    if (matchPos !== "inpro") {
+      return;
+    }
     if (turn === "me") {
       return <div>Your turn</div>;
     } else if (turn === "opp") {
@@ -49,7 +53,7 @@ class TicTacToeBoard extends React.Component {
   };
 
   render() {
-    const { turn, board, matchPos, score } = this.props.matchState;
+    const { board, score } = this.props.matchState;
     return (
       <div>
         <div>
@@ -95,7 +99,7 @@ class TicTacToeBoard extends React.Component {
             );
           })}
         </div>
-        <div className="turn-msg">{this.getTurnMessage(turn, matchPos)}</div>
+        <div className="turn-msg">{this.getTurnMessage()}</div>
       </div>
     );
   }

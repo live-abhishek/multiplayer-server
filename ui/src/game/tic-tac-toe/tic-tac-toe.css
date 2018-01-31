@@ -35,6 +35,7 @@
 
 .turn-msg {
   width: 60vmin;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }

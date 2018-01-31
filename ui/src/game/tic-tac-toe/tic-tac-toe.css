@@ -40,6 +40,12 @@
   margin-right: auto;
 }
 
+.start {
+  color: crimson;
+  font-size: 2em;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', 'sans-serif'
+}
+
 .cell:nth-child(1) {
   border-bottom: 1px solid black;
   border-right: 1px solid black;

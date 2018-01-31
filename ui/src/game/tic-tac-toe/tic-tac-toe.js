@@ -44,7 +44,7 @@ class TicTacToeBoard extends React.Component {
   getStartIndicator = () => {
     const { starter } = this.props.matchState;
     if (starter) {
-      return <TransitionGroup appear><Popout><div>Start</div></Popout></TransitionGroup >;
+      return <TransitionGroup appear><Popout><div className="start">Start</div></Popout></TransitionGroup>
     }
   }
 

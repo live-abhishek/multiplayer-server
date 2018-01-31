@@ -15,4 +15,5 @@ export class TicTacToeResponseEvent {
   matchResult: ResponseMatchResultState = ResponseMatchResultState.inpro;
   winState: Array<number>;
   score: { won: number; lost: number; ties: number };
+  starter: boolean;
 }

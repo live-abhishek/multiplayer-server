@@ -101,7 +101,7 @@ export class TicTacToeRoom implements IRoom {
     this.players.forEach((itrPlayer, idx) => {
       itrPlayer.socket.emit(
         "gameInit",
-        this.createResponse(this.match.nextTurnPlayerIndex !== idx, idx)
+        this.createResponse(this.match.nextTurnPlayerIndex !== idx, idx, true)
       );
     });
   }
@@ -117,7 +117,7 @@ export class TicTacToeRoom implements IRoom {
       this.players.forEach((itrPlayer, idx) => {
         itrPlayer.socket.emit(
           "gameInit",
-          this.createResponse(this.match.nextTurnPlayerIndex !== idx, idx)
+          this.createResponse(this.match.nextTurnPlayerIndex !== idx, idx, true)
         );
       });
     }, 2000);
@@ -181,7 +181,8 @@ export class TicTacToeRoom implements IRoom {
 
   private createResponse(
     lastPlayerByThisPlayer: boolean,
-    lastPlayedPlayerIndex: number
+    lastPlayedPlayerIndex: number,
+    firstMove?: boolean
   ): TicTacToeResponseEvent {
     const response = new TicTacToeResponseEvent();
     response.boardState = this.match.boardState;
@@ -197,6 +198,7 @@ export class TicTacToeRoom implements IRoom {
     }
     response.winState = this.match.winState;
     response.score = this.createScoreResponse(lastPlayedPlayerIndex);
+    response.starter = firstMove && response.myTurn;
     return response;
   }
 

@@ -41,6 +41,13 @@ class TicTacToeBoard extends React.Component {
     }
   };
 
+  getStartIndicator = () => {
+    const { starter } = this.props.matchState;
+    if (starter) {
+      return <TransitionGroup appear><Popout><div>Start</div></Popout></TransitionGroup >;
+    }
+  }
+
   render() {
     const { board, score } = this.props.matchState;
     return (
@@ -89,6 +96,7 @@ class TicTacToeBoard extends React.Component {
           })}
         </div>
         <div className="turn-msg">{this.getWaitMessage()}</div>
+        {this.getStartIndicator()}
       </div>
     );
   }

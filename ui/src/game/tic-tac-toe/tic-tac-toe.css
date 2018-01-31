@@ -15,7 +15,7 @@
 .cell {
   width: 20vmin;
   height: 20vmin;
-  transition: background-color 1s;
+  transition: background-color 300ms;
 }
 
 .cell-content {

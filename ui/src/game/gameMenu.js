@@ -2,6 +2,7 @@ import React from "react";
 import Button from "material-ui/Button";
 import SimpleMediaCard from "../components/simpleMediaCard";
 import tictactoeImage from "./tic-tac-toe/tic-tac-toe.png";
+import "./gameMenu.css";
 
 const gameMenu = props => {
   const clickHandler = param => () => {
@@ -9,14 +10,16 @@ const gameMenu = props => {
   };
   const { classes } = props;
   return (
-    <div>
+    <div className="menu">
       <SimpleMediaCard
+        className="item"
         onClick={clickHandler("tictactoe")}
         image={tictactoeImage}
         title="Tic-Tac-Toe-1"
         detail="blah blah blah"
       />
       <SimpleMediaCard
+        className="item"
         onClick={clickHandler("tictactoe2")}
         image={tictactoeImage}
         title="Tic-Tac-Toe-2"

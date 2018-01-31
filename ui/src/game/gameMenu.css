@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.item {
+  margin-left: 10px;
+  margin-right: 10px;
+}

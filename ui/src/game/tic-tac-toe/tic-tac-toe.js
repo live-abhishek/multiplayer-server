@@ -9,12 +9,8 @@ import TicTacToeScoreBoard from "./tttScoreBoard";
 const TIC_TAC_TOE = "tictactoe";
 
 class TicTacToeBoard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleCellClick = index => () => {
-    this.setState({ myTurnStart: true })
     const { turn, matchPos } = this.props.matchState;
     if (matchPos === "inpro" && turn === "me") {
       const moveEventData = {

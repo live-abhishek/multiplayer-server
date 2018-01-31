@@ -180,14 +180,14 @@ export class TicTacToeRoom implements IRoom {
   }
 
   private createResponse(
-    wasThisPlayerTurn: boolean,
-    wasThisPlayerIndex: number
+    lastPlayerByThisPlayer: boolean,
+    lastPlayedPlayerIndex: number
   ): TicTacToeResponseEvent {
     const response = new TicTacToeResponseEvent();
     response.boardState = this.match.boardState;
-    response.myTurn = !wasThisPlayerTurn;
+    response.myTurn = !lastPlayerByThisPlayer;
     if (this.match.matchResult === TicTacToeMatchResultState.result) {
-      response.matchResult = wasThisPlayerTurn
+      response.matchResult = lastPlayerByThisPlayer
         ? ResponseMatchResultState.win
         : ResponseMatchResultState.lost;
     } else if (this.match.matchResult === TicTacToeMatchResultState.tied) {
@@ -196,21 +196,21 @@ export class TicTacToeRoom implements IRoom {
       response.matchResult = ResponseMatchResultState.inpro;
     }
     response.winState = this.match.winState;
-    response.score = this.createScoreResponse(wasThisPlayerIndex);
+    response.score = this.createScoreResponse(lastPlayedPlayerIndex);
     return response;
   }
 
   /**
    * If the playerIndex is 0, then his win is this.score[0] & his loss is this.score[1]
    * If the playerIndex is 1, then his win in this.score[1] & his loss is this.score[0] === this.score[(1+1)%2]
-   * @param thisPlayerIndex the player's index for whom this response is being constructed
+   * @param lastPlayedPlayerIndex the player's index for whom this response is being constructed
    */
   private createScoreResponse(
-    thisPlayerIndex: number
+    lastPlayedPlayerIndex: number
   ): { won: number; lost: number; ties: number } {
     const scoreResponse = {
-      won: this.score[thisPlayerIndex],
-      lost: this.score[(thisPlayerIndex + 1) % TicTacToeRoom.maxPlayers],
+      won: this.score[lastPlayedPlayerIndex],
+      lost: this.score[(lastPlayedPlayerIndex + 1) % TicTacToeRoom.maxPlayers],
       ties: this.score[2]
     };
     return scoreResponse;

@@ -1,4 +1,4 @@
-import { IRoom } from "../iRoom";
+import { Room } from "../room";
 import { logger } from "../bunyan";
 import { Player } from "../player";
 import { TicTacToeRequestEvent } from "./tictactoeRequestEvent";
@@ -9,14 +9,7 @@ import {
 import { AppConstants } from "../appConstants";
 import { TicTacToeMatch, TicTacToeMatchResultState } from "./tictactoeMatch";
 
-export enum RoomState {
-  matchInPro = "matchInPro",
-  waiting = "waiting",
-  matchEnded = "matchEnded",
-  closed = "closed"
-}
-
-export class TicTacToeRoom implements IRoom {
+export class TicTacToeRoom extends Room {
   private static readonly winStates: Array<Array<number>> = [
     [0, 1, 2],
     [3, 4, 5],
@@ -29,9 +22,7 @@ export class TicTacToeRoom implements IRoom {
   ];
   static readonly maxPlayers = 2;
 
-  gameType: string = AppConstants.TIC_TAC_TOE;
   players: Array<Player> = [];
-  roomState: RoomState;
   match: TicTacToeMatch;
   readonly roomName: string;
   /**
@@ -42,8 +33,8 @@ export class TicTacToeRoom implements IRoom {
   private score: Array<number> = [0, 0, 0];
 
   constructor(roomName: string) {
-    this.roomName = roomName;
-    this.roomState = RoomState.waiting;
+    super(roomName);
+    this.gameType = AppConstants.TIC_TAC_TOE;
   }
 
   addPlayer(player: Player) {
@@ -75,22 +66,6 @@ export class TicTacToeRoom implements IRoom {
     ) {
       this.startNewGame();
     }
-  }
-
-  handleDisconnection(player: Player) {
-    this.players
-      .filter(itrPlayer => itrPlayer.id !== player.id)
-      .forEach(itrPlayer =>
-        itrPlayer.socket.emit("playerDisconnected", {
-          gameType: this.gameType,
-          matchResult: "disconnected"
-        })
-      );
-    this.roomState = RoomState.closed;
-  }
-
-  isRoomClosed(): boolean {
-    return this.roomState === RoomState.closed;
   }
 
   private startGame() {

@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { requestGame } from "./gameAction";
 import { sendGameRequest } from "../socketHelper/socketProvider";
 import MessageBar from "../components/messageBar";
+import { CustomLoading } from "../components/customLoading";
 
 const gameArea = props => {
   return (
@@ -16,7 +17,7 @@ const gameArea = props => {
           <MessageBar reason={props.responseState.reason} />
         </div>
       )}
-      {props.pageState === "WAITING" && <CircularIndeterminate />}
+      {props.pageState === "WAITING" && <CustomLoading />}
       {props.pageState === "FULFILLED" &&
         props.responseState.gameType === "tictactoe" && (
           <TicTacToeContainer responseState={props.responseState} />

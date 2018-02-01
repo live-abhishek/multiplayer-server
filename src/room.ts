@@ -19,15 +19,11 @@ export abstract class Room implements IRoom {
     this.roomName = roomName;
   }
 
-  addPlayer(player: Player): void {
-    throw new Error("Method not implemented.");
-  }
-  isAvailable(): boolean {
-    throw new Error("Method not implemented.");
-  }
-  processEvent(event: any, player: Player): void {
-    throw new Error("Method not implemented.");
-  }
+  abstract addPlayer(player: Player): void;
+
+  abstract isAvailable(): boolean;
+
+  abstract processEvent(event: any, player: Player): void;
 
   handleDisconnection(player: Player) {
     this.players

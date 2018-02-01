@@ -5,6 +5,8 @@ import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
 import LinearIndeterminate from "../../animations/linearIndeterminate";
 import TicTacToeScoreBoard from "./tttScoreBoard";
+import oImage from "./images/O.png";
+import xImage from "./images/X.png";
 
 const TIC_TAC_TOE = "tictactoe";
 
@@ -71,7 +73,7 @@ class TicTacToeBoard extends React.Component {
                   {cell === 1 && (
                     <Popout>
                       <img
-                        src="https://image.ibb.co/nDDDuw/circle_outline.png"
+                        src={oImage}
                         alt=""
                         className="cell-content"
                       />
@@ -80,7 +82,7 @@ class TicTacToeBoard extends React.Component {
                   {cell === 2 && (
                     <Popout>
                       <img
-                        src="https://image.ibb.co/jY0nMb/close.png"
+                        src={xImage}
                         alt=""
                         className="cell-content"
                       />

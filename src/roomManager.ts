@@ -1,6 +1,7 @@
 import * as uuidv1 from "uuid/v1";
 import { IRoom } from "./iRoom";
 import { TicTacToeRoom } from "./tictactoe/tictactoeRoom";
+import { DotsRoom } from "./dots/dotsRoom";
 import { logger } from "./bunyan";
 import { Player } from "./player";
 import { AppConstants } from "./appConstants";
@@ -35,6 +36,9 @@ export class RoomManager {
     switch (gameType) {
       case AppConstants.TIC_TAC_TOE:
         room = new TicTacToeRoom(uuidv1());
+        break;
+      case AppConstants.DOTS:
+        room = new DotsRoom(uuidv1());
         break;
       default:
         throw new Error("Unidentified game type");

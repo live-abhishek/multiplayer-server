@@ -1,6 +1,6 @@
 const initialState = {
   pageState: "MENU",
-  gameType: null
+  responseState: {}
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +17,14 @@ export default (state = initialState, action) => {
         pageState: "FULFILLED",
         responseState: action.payload
       };
+      break;
+    case "DISCONNECTED":
+      state = {
+        ...state,
+        pageState: "MENU",
+        responseState: action.payload
+      };
+      break;
   }
   return state;
 };

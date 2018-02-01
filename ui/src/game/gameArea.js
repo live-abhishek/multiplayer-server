@@ -5,13 +5,16 @@ import CircularIndeterminate from "./gameWaiting";
 import { connect } from "react-redux";
 import { requestGame } from "./gameAction";
 import { sendGameRequest } from "../socketHelper/socketProvider";
+import MessageBar from "../components/messageBar";
 
 const gameArea = props => {
   return (
-    // <TicTacToe />
     <div>
       {props.pageState === "MENU" && (
-        <GameMenu requestHandler={props.requestGame} />
+        <div>
+          <GameMenu requestHandler={props.requestGame} />
+          <MessageBar reason={props.responseState.reason} />
+        </div>
       )}
       {props.pageState === "WAITING" && <CircularIndeterminate />}
       {props.pageState === "FULFILLED" &&

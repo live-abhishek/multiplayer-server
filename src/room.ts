@@ -31,7 +31,8 @@ export abstract class Room implements IRoom {
       .forEach(itrPlayer =>
         itrPlayer.socket.emit("playerDisconnected", {
           gameType: this.gameType,
-          matchResult: "disconnected"
+          matchResult: "disconnected",
+          reason: "Player dropped!"
         })
       );
     this.roomState = RoomState.closed;

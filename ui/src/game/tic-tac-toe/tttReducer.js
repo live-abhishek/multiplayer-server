@@ -44,13 +44,6 @@ export default (state = initialState, action) => {
         starter: action.payload.starter
       };
       break;
-    case "DISCONNECTED":
-      state = {
-        ...state,
-        gameType: action.payload.gameType,
-        matchPos: action.payload.matchResult
-      };
-      break;
   }
   return state;
 };

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { requestGame } from "./gameAction";
 import { sendGameRequest } from "../socketHelper/socketProvider";
 import MessageBar from "../components/messageBar";
-import { CustomLoading } from "../components/customLoading";
+import { CustomLoading } from "../components/waiting/customLoading";
 
 const gameArea = props => {
   return (

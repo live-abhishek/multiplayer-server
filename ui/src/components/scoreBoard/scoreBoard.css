@@ -14,9 +14,10 @@
     "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
   color: blue;
   font-size: 200%;
+  font-weight: bold;
 }
 
 @font-face {
   font-family: "ThrowMyHandsUpintheAir";
-  src: local("ThrowMyHandsUpintheAir"), url(./ThrowMyHandsUpintheAir.ttf);
+  src: local("ThrowMyHandsUpintheAir"), url(../../fonts/ThrowMyHandsUpintheAir.ttf);
 }

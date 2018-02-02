@@ -3,9 +3,9 @@ import classNames from "classnames";
 import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
 import LinearIndeterminate from "../../animations/linearIndeterminate";
-import TicTacToeScoreBoard from "./tttScoreBoard";
-import oImage from "./images/O.png";
-import xImage from "./images/X.png";
+import ScoreBoard from "../../components/scoreBoard/scoreBoard";
+import oImage from "../../images/O.png";
+import xImage from "../../images/X.png";
 
 const TIC_TAC_TOE = "tictactoe";
 
@@ -53,7 +53,7 @@ class TicTacToeBoard extends React.Component {
     return (
       <div className="center-area">
         <div className="score-holder">
-          <TicTacToeScoreBoard
+          <ScoreBoard
             won={score.won}
             lost={score.lost}
             ties={score.ties}

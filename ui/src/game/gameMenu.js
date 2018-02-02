@@ -1,7 +1,7 @@
 import React from "react";
 import SimpleMediaCard from "../components/simpleMediaCard";
-import tictactoeImage from "./tic-tac-toe/ttt.jpg";
-import comingSoonImage from "./coming-soon.png";
+import tictactoeImage from "../images/tic-tac-toe.jpg";
+import comingSoonImage from "../images/coming-soon.png";
 import "./gameMenu.css";
 
 const gameMenu = props => {

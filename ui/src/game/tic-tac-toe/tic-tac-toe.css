@@ -29,9 +29,6 @@
   }
 }
 
-.cell {
-}
-
 .cell-content {
   width: 80%;
   height: 80%;
@@ -116,77 +113,3 @@
     opacity: 1;
   }
 }
-
-.start {
-  color: crimson;
-  font-size: 2em;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
-}
-
-.cell:nth-child(1) {
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-}
-
-.cell:nth-child(2) {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.cell:nth-child(3) {
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.cell:nth-child(4) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-}
-
-.cell:nth-child(5) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.cell:nth-child(6) {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.cell:nth-child(7) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-}
-
-.cell:nth-child(8) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-}
-
-.cell:nth-child(9) {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-}
-
-@keyframes blink {
-  from {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* .cell-content-empty:hover {
-    background: lightblue;
-  } */

@@ -1,7 +1,7 @@
 import React from "react";
-import "./tttScoreBoard.css";
+import "./scoreBoard.css";
 
-const TicTacToeScoreBoard = props => {
+const ScoreBoard = props => {
   return (
     <div className="scoreBoard">
       <div className="score-cell header">Won</div>
@@ -14,4 +14,4 @@ const TicTacToeScoreBoard = props => {
   );
 };
 
-export default TicTacToeScoreBoard;
+export default ScoreBoard;

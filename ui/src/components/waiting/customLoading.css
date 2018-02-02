@@ -3,8 +3,8 @@
 }
 
 @font-face {
-  font-family: "Berkshire Swash";
-  src: local("BerkshireSwash-Regular"), url(./BerkshireSwash-Regular.ttf);
+  font-family: "ThrowMyHandsUpintheAir";
+  src: local("ThrowMyHandsUpintheAir"), url(../../fonts/ThrowMyHandsUpintheAir.ttf);
 }
 
 .grid {
@@ -67,7 +67,7 @@
 }
 
 .wait-msg {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  font-family: "ThrowMyHandsUpintheAir", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
   color: #ec366ce5;
   font-size: 200%;

@@ -1,6 +1,6 @@
 import React from "react";
 import "./customLoading.css";
-import gameImage from "../../images/game.png";
+import gameImage from "../../images/game.svg";
 
 export const CustomLoading = props => {
   return (

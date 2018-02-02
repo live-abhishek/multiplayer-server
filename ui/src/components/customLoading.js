@@ -6,7 +6,7 @@ export const CustomLoading = props => {
   return (
     <div className="grid">
       <div className="loading">
-        <img src={gameImage} />
+        <img src={gameImage} alt="" />
         <div className="button orange" />
         <div className="button red" />
         <div className="button green" />

@@ -44,6 +44,8 @@ export default (state = initialState, action) => {
         starter: action.payload.starter
       };
       break;
+    default:
+      break;
   }
   return state;
 };

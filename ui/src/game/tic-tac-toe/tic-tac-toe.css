@@ -25,7 +25,7 @@
 }
 
 .cell-background-transition {
-  background-color: lightgreen;
+  animation: blink 300ms infinite;
 }
 
 .cell-content-empty {
@@ -43,7 +43,8 @@
 .start {
   color: crimson;
   font-size: 2em;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', 'sans-serif'
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
 }
 
 .cell:nth-child(1) {
@@ -95,6 +96,18 @@
 .cell:nth-child(9) {
   border-top: 1px solid black;
   border-left: 1px solid black;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* .cell-content-empty:hover {

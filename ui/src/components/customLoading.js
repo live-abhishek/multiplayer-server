@@ -13,7 +13,7 @@ export const CustomLoading = props => {
         <div className="button blue" />
       </div>
       <div className="wait-msg">
-        Finding an opponent!<br /> You can ask you friend to join.
+        Please Wait...<br />We are trying to find an oppponent for you.
       </div>
     </div>
   );

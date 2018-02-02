@@ -3,15 +3,16 @@
 }
 
 @font-face {
-  font-family: 'Berkshire Swash';
-  src: local('BerkshireSwash-Regular'), url(./BerkshireSwash-Regular.ttf);
+  font-family: "Berkshire Swash";
+  src: local("BerkshireSwash-Regular"), url(./BerkshireSwash-Regular.ttf);
 }
 
 .grid {
   display: grid;
   justify-content: center;
-  grid-template-rows: auto auto;
-  grid-template-columns: auto;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .loading {
@@ -20,37 +21,37 @@
 
 .button {
   position: absolute;
-  width: 4%;
-  height: 4%;
+  width: 8%;
+  height: 8%;
   border-radius: 50%;
   animation: blink 1500ms infinite;
 }
 
 .orange {
   background: orange;
-  top: 31%;
-  left: 73%;
+  top: 29%;
+  left: 71.3%;
   animation-delay: 400ms;
 }
 
 .red {
-  background: red;
-  top: 38.5%;
-  left: 80.5%;
+  background: crimson;
+  top: 36.3%;
+  left: 78.8%;
   animation-delay: 800ms;
 }
 
 .green {
-  background: green;
-  top: 46%;
-  left: 73%;
+  background: limegreen;
+  top: 43.9%;
+  left: 71.1%;
   animation-delay: 1200ms;
 }
 
 .blue {
-  background: blue;
-  top: 38.5%;
-  left: 65.5%;
+  background: royalblue;
+  top: 36.5%;
+  left: 63.5%;
 }
 
 @keyframes blink {
@@ -66,9 +67,10 @@
 }
 
 .wait-msg {
-  font: 20px/1.2 'Berkshire Swash', Helvetica, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
   color: #ec366ce5;
-  text-shadow: 1px 1px 0px #df7c9a, 2px 2px 0px rgba(0,0,0,0.15);
+  font-size: 200%;
 }
 
 img {

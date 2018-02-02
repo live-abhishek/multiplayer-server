@@ -1,5 +1,4 @@
 import React from "react";
-import { TransitionGroup } from "react-transition-group";
 import classNames from "classnames";
 import Popout from "../../animations/popout";
 import "./tic-tac-toe.css";
@@ -11,7 +10,6 @@ import xImage from "./images/X.png";
 const TIC_TAC_TOE = "tictactoe";
 
 class TicTacToeBoard extends React.Component {
-
   handleCellClick = index => () => {
     const { turn, matchPos } = this.props.matchState;
     if (matchPos === "inpro" && turn === "me") {
@@ -42,15 +40,19 @@ class TicTacToeBoard extends React.Component {
   getStartIndicator = () => {
     const { starter } = this.props.matchState;
     if (starter) {
-      return <TransitionGroup appear><Popout><div className="start">Start</div></Popout></TransitionGroup>
+      return (
+        <Popout>
+          <div className="start">Start</div>
+        </Popout>
+      );
     }
-  }
+  };
 
   render() {
     const { board, score } = this.props.matchState;
     return (
-      <div>
-        <div>
+      <div className="center-area">
+        <div className="score-holder">
           <TicTacToeScoreBoard
             won={score.won}
             lost={score.lost}
@@ -61,34 +63,24 @@ class TicTacToeBoard extends React.Component {
           {board.map((cell, index) => {
             return (
               <div key={`${index}`} className={this.getCellClasses(index)}>
-                <TransitionGroup appear>
-                  {cell === 0 && (
-                    <img
-                      src="https://image.ibb.co/c0q1Ew/transparent.png"
-                      alt=""
-                      className="cell-content-empty"
-                      onClick={this.handleCellClick(index)}
-                    />
-                  )}
-                  {cell === 1 && (
-                    <Popout>
-                      <img
-                        src={oImage}
-                        alt=""
-                        className="cell-content"
-                      />
-                    </Popout>
-                  )}
-                  {cell === 2 && (
-                    <Popout>
-                      <img
-                        src={xImage}
-                        alt=""
-                        className="cell-content"
-                      />
-                    </Popout>
-                  )}
-                </TransitionGroup>
+                {cell === 0 && (
+                  <img
+                    src="https://image.ibb.co/c0q1Ew/transparent.png"
+                    alt=""
+                    className="cell-content-empty"
+                    onClick={this.handleCellClick(index)}
+                  />
+                )}
+                {cell === 1 && (
+                  <Popout>
+                    <img src={oImage} alt="" className="cell-content" />
+                  </Popout>
+                )}
+                {cell === 2 && (
+                  <Popout>
+                    <img src={xImage} alt="" className="cell-content" />
+                  </Popout>
+                )}
               </div>
             );
           })}

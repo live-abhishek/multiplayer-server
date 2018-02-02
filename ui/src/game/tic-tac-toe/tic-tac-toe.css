@@ -20,6 +20,11 @@
   width: 100%;
 }
 
+.board-holder {
+  display: grid;
+  align-items: center;
+}
+
 @media screen and (max-width: 600px) {
   .center-area {
     width: 90vmin;
@@ -36,7 +41,7 @@
 }
 
 .cell-background-transition {
-  animation: blink 300ms infinite;
+  animation: blink 500ms infinite;
 }
 
 .cell-content-empty {
@@ -53,54 +58,54 @@
 }
 
 .border-holder:nth-child(1) {
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
+  border-bottom: 1px solid #808080;
+  border-right: 1px solid #808080;
 }
 
 .border-holder:nth-child(2) {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  border-left: 1px solid #808080;
 }
 
 .border-holder:nth-child(3) {
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border-bottom: 1px solid #808080;
+  border-left: 1px solid #808080;
 }
 
 .border-holder:nth-child(4) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  border-top: 1px solid #808080;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
 }
 
 .border-holder:nth-child(5) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid #808080;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  border-left: 1px solid #808080;
 }
 
 .border-holder:nth-child(6) {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+  border-left: 1px solid #808080;
 }
 
 .border-holder:nth-child(7) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
+  border-top: 1px solid #808080;
+  border-right: 1px solid #808080;
 }
 
 .border-holder:nth-child(8) {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid #808080;
+  border-right: 1px solid #808080;
+  border-left: 1px solid #808080;
 }
 
 .border-holder:nth-child(9) {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid #808080;
+  border-left: 1px solid #808080;
 }
 
 @keyframes blink {

@@ -59,37 +59,39 @@ class TicTacToeBoard extends React.Component {
             ties={score.ties}
           />
         </div>
-        <div className="board">
-          {board.map((cell, index) => {
-            return (
-              <div key={`${index}`} className="border-holder">
-                <div className={this.getCellClasses(index)}>
-                  {cell === 0 && (
-                    <img
-                      src="https://image.ibb.co/c0q1Ew/transparent.png"
-                      alt=""
-                      className="cell-content-empty"
-                      onClick={this.handleCellClick(index)}
-                    />
-                  )}
-                  {cell === 1 && (
-                    <Popout>
-                      <img src={oImage} alt="" className="cell-content" />
-                    </Popout>
-                  )}
-                  {cell === 2 && (
-                    <Popout>
-                      <img src={xImage} alt="" className="cell-content" />
-                    </Popout>
-                  )}
+        <div className="board-holder">
+          <div className="board">
+            {board.map((cell, index) => {
+              return (
+                <div key={`${index}`} className="border-holder">
+                  <div className={this.getCellClasses(index)}>
+                    {cell === 0 && (
+                      <img
+                        src="https://image.ibb.co/c0q1Ew/transparent.png"
+                        alt=""
+                        className="cell-content-empty"
+                        onClick={this.handleCellClick(index)}
+                      />
+                    )}
+                    {cell === 1 && (
+                      <Popout>
+                        <img src={oImage} alt="" className="cell-content" />
+                      </Popout>
+                    )}
+                    {cell === 2 && (
+                      <Popout>
+                        <img src={xImage} alt="" className="cell-content" />
+                      </Popout>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </div >
         <div className="turn-msg">{this.getWaitMessage()}</div>
         {this.getStartIndicator()}
-      </div>
+      </div >
     );
   }
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import TicTacToeContainer from "./tic-tac-toe/tttContainer";
 import GameMenu from "./gameMenu";
-import CircularIndeterminate from "./gameWaiting";
 import { connect } from "react-redux";
 import { requestGame } from "./gameAction";
 import { sendGameRequest } from "../socketHelper/socketProvider";

@@ -3,19 +3,20 @@
 }
 
 .scoreBoard {
-  width: 60vmin;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.header {
-  border-bottom: 1px solid black;
 }
 
 .score-cell {
-  margin-left: auto;
-  margin-right: auto;
   height: auto;
+  font-family: "ThrowMyHandsUpintheAir", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
+  color: blue;
+  font-size: 200%;
+}
+
+@font-face {
+  font-family: "ThrowMyHandsUpintheAir";
+  src: local("ThrowMyHandsUpintheAir"), url(./ThrowMyHandsUpintheAir.ttf);
 }

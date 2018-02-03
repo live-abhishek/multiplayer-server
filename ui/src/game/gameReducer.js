@@ -25,6 +25,12 @@ export default (state = initialState, action) => {
         responseState: action.payload
       };
       break;
+    case "LEAVE_ROOM":
+      state = {
+        ...state,
+        pageState: "MENU",
+        responseState: {}
+      }
     default:
       break;
   }

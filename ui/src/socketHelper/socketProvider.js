@@ -20,3 +20,7 @@ tictactoeSocketEventRegister(socket);
 export const sendGameRequest = data => {
   socket.emit("gameRequest", data);
 };
+
+export const sendLeaveRoomSignal = () => {
+  socket.emit("leave", {});
+}

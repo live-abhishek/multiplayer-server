@@ -10,6 +10,9 @@ import Button from "material-ui/Button";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
 import Cookies from "universal-cookie";
+import { connect } from "react-redux";
+import { leaveRoom } from "../game/gameAction";
+import { sendLeaveRoomSignal } from "../socketHelper/socketProvider";
 
 const styles = theme => ({
   root: {
@@ -30,20 +33,19 @@ class ButtonAppBar extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.cookies = new Cookies();
   }
   render() {
     return (
       <div className={this.props.classes.root}>
         <AppBar position="static">
           <Toolbar>
-            {/* <IconButton
+            <IconButton
               className={this.props.classes.menuButton}
               color="contrast"
               aria-label="Menu"
             >
               <MenuIcon />
-            </IconButton> */}
+            </IconButton>
             <Typography
               type="title"
               color="inherit"
@@ -51,14 +53,29 @@ class ButtonAppBar extends React.Component {
             >
               Notebook Games
             </Typography>
-            {/* <Button color="contrast">
-              Welcome {this.cookies.get("nickname")}
-            </Button> */}
+            {this.props.pageState !== "MENU" && (< Button color="contrast" onClick={this.props.leaveRoom}>
+              Leave
+            </Button>)}
           </Toolbar>
         </AppBar>
-      </div>
+      </div >
     );
   }
 }
 
-export default withStyles(styles)(ButtonAppBar);
+const mapStateToProps = state => {
+  return {
+    pageState: state.game.pageState,
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    leaveRoom: () => {
+      sendLeaveRoomSignal();
+      dispatch(leaveRoom());
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ButtonAppBar));

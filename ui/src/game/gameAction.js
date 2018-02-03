@@ -11,3 +11,9 @@ export function requestGameFulfilled(data) {
     payload: data
   };
 }
+
+export function leaveRoom() {
+  return {
+    type: "LEAVE_ROOM",
+  }
+}

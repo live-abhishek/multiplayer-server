@@ -14,7 +14,7 @@ export class RoomManager {
   private static roomManager: RoomManager;
   private rooms: Array<IRoom> = [];
   private playerRoomMap: { [palyerId: string]: IRoom } = {};
-  private constructor() {}
+  private constructor() { }
 
   static getRoomManager(): RoomManager {
     if (!RoomManager.roomManager) {
@@ -69,7 +69,7 @@ export class RoomManager {
   public processGameRequest(player: Player, requestData: GameRequest) {
     logger.info("requested by: ", player.id, JSON.stringify(requestData));
     const availableRoom = this.rooms.find(
-      room => room.gameType === requestData.gameType && room.isAvailable()
+      room => room.gameType === requestData.gameType && room.isAvailable() && !room.isRoomClosed()
     );
     if (availableRoom) {
       this.addPlayerToRoom(availableRoom, player);

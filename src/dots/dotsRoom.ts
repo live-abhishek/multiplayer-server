@@ -1,14 +1,18 @@
 import { IRoom } from "../iRoom";
 import { Player } from "../player";
+import { Room } from "../room";
+import { AppConstants } from "../appConstants";
 
-export class DotsRoom implements IRoom {
+export class DotsRoom extends Room {
   roomName: string;
   gameType: string;
   players: any[];
 
   constructor(roomName: string) {
-    this.roomName = roomName;
+    super(roomName);
+    this.gameType = AppConstants.DOTS;
   }
+
   addPlayer(player: Player): void {
     throw new Error("Method not implemented.");
   }

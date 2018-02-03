@@ -13,7 +13,6 @@ import Cookies from "universal-cookie";
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit * 3,
     width: "100%"
   },
   flex: {
@@ -38,23 +37,23 @@ class ButtonAppBar extends React.Component {
       <div className={this.props.classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
+            {/* <IconButton
               className={this.props.classes.menuButton}
               color="contrast"
               aria-label="Menu"
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Typography
               type="title"
               color="inherit"
               className={this.props.classes.flex}
             >
-              Title
+              Notebook Games
             </Typography>
-            <Button color="contrast">
+            {/* <Button color="contrast">
               Welcome {this.cookies.get("nickname")}
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
       </div>

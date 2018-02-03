@@ -59,7 +59,7 @@ export class RoomManager {
   }
 
   private removeRoom(room: IRoom) {
-    room.players.forEach(player => delete this.playerRoomMap[player.id]);
+    room.players.forEach(player => this.roomPlayerFromMap(player));
     this.rooms = this.rooms.filter(
       curRoom => curRoom.roomName !== room.roomName
     );
@@ -68,6 +68,7 @@ export class RoomManager {
 
   public processGameRequest(player: Player, requestData: GameRequest) {
     logger.info("requested by: ", player.id, JSON.stringify(requestData));
+    this.roomPlayerFromMap(player); // to ensure that player is not already part of some room
     const availableRoom = this.rooms.find(
       room => room.gameType === requestData.gameType && room.isAvailable() && !room.isRoomClosed()
     );
@@ -94,6 +95,7 @@ export class RoomManager {
     if (room) {
       room.handleDisconnection(player, "Player dropped!");
     }
+    this.roomPlayerFromMap(player);
   }
 
   public handleLeaveRoom(player: Player) {
@@ -102,6 +104,7 @@ export class RoomManager {
     if (room) {
       room.handleLeaveRoom(player, "Player left!");
     }
+    this.roomPlayerFromMap(player);
   }
 
   public getAllRoomInfo(): Array<{
@@ -119,5 +122,9 @@ export class RoomManager {
       };
     });
     return rooms;
+  }
+
+  private roomPlayerFromMap(player: Player) {
+    delete this.playerRoomMap[player.id];
   }
 }

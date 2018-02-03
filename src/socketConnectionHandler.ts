@@ -18,4 +18,7 @@ export const socketConnectionHandler = (socket: any) => {
   socket.on("disconnect", () => {
     roomManager.handleDisconnection(new Player(socket));
   });
+  socket.on("leave", (data: any) => {
+    roomManager.handleLeaveRoom(new Player(socket));
+  });
 };

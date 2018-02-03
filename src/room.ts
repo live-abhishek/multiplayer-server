@@ -25,17 +25,21 @@ export abstract class Room implements IRoom {
 
   abstract processEvent(event: any, player: Player): void;
 
-  handleDisconnection(player: Player) {
+  handleDisconnection(player: Player, reason: string) {
     this.players
       .filter(itrPlayer => itrPlayer.id !== player.id)
       .forEach(itrPlayer =>
         itrPlayer.socket.emit("playerDisconnected", {
           gameType: this.gameType,
           matchResult: "disconnected",
-          reason: "Player dropped!"
+          reason: reason
         })
       );
     this.roomState = RoomState.closed;
+  }
+
+  handleLeaveRoom(player: Player, reason: string) {
+    this.handleDisconnection(player, reason);
   }
 
   isRoomClosed(): boolean {

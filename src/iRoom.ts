@@ -10,6 +10,7 @@ export interface IRoom {
   addPlayer(player: Player): void;
   isAvailable(): boolean;
   processEvent(event: any, player: Player): void;
-  handleDisconnection(socket: any): void;
+  handleDisconnection(socket: any, reason: string): void;
+  handleLeaveRoom(socket: any, reason: string): void;
   isRoomClosed(): boolean;
 }

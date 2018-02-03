@@ -92,7 +92,15 @@ export class RoomManager {
     logger.info("disconnected: ", player.id);
     const room = this.playerRoomMap[player.id];
     if (room) {
-      room.handleDisconnection(player);
+      room.handleDisconnection(player, "Player dropped!");
+    }
+  }
+
+  public handleLeaveRoom(player: Player) {
+    logger.info("left: ", player.id);
+    const room = this.playerRoomMap[player.id];
+    if (room) {
+      room.handleLeaveRoom(player, "Player left!");
     }
   }
 
@@ -100,12 +108,14 @@ export class RoomManager {
     name: string;
     gameType: string;
     players: Array<string>;
+    isRoomClosed: boolean
   }> {
     const rooms = this.rooms.map(room => {
       return {
         name: room.roomName,
         gameType: room.gameType,
-        players: room.players.map(player => player.id)
+        players: room.players.map(player => player.id),
+        isRoomClosed: room.isRoomClosed()
       };
     });
     return rooms;

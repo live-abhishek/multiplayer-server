@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 .menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, max-content));

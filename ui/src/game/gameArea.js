@@ -1,5 +1,6 @@
 import React from "react";
 import TicTacToeContainer from "./tic-tac-toe/tttContainer";
+import DotsContainer from "./dots/dotsContainer";
 import GameMenu from "./gameMenu";
 import { connect } from "react-redux";
 import { requestGame } from "./gameAction";
@@ -22,7 +23,9 @@ const gameArea = props => {
           <TicTacToeContainer responseState={props.responseState} />
         )}
       {props.pageState === "FULFILLED" &&
-        props.responseState.gameType === "tictactoe2" && <div>TicTacToe2</div>}
+        props.responseState.gameType === "dots" && (
+          <DotsContainer responseState={props.responseState} />
+        )}
     </div>
   );
 };

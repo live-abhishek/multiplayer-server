@@ -176,10 +176,7 @@ export class DotsRoom extends Room {
     }
     this.match = new DotsMatch();
     this.players.forEach((roomPlayer, idx) => {
-      roomPlayer.socket.emit(
-        "gameInit",
-        this.createResponse(this.match.nextTurnPlayerIndex !== idx, idx, true)
-      );
+      roomPlayer.socket.emit("gameInit", this.createResponse(idx, true));
     });
   }
 
@@ -192,40 +189,24 @@ export class DotsRoom extends Room {
     );
     setTimeout(() => {
       this.players.forEach((roomPlayer, idx) => {
-        roomPlayer.socket.emit(
-          "gameInit",
-          this.createResponse(this.match.nextTurnPlayerIndex !== idx, idx, true)
-        );
+        roomPlayer.socket.emit("gameInit", this.createResponse(idx, true));
       });
     }, 2000);
   }
 
   private sendResponse() {
     this.players.forEach((roomPlayer, idx) => {
-      const response = this.createResponse(
-        this.match.nextTurnPlayerIndex === idx,
-        idx
-      );
+      const response = this.createResponse(idx);
       roomPlayer.socket.emit("gameMoveResponse", response);
     });
   }
 
   private createResponse(
-    lastPlayedByThisPlayer: boolean,
-    lastPlayedPlayerIndex: number,
+    playerIndex: number,
     firstMove?: boolean
   ): DotsResponseEvent {
-    const response = new DotsResponseEvent();
-    response.boardState = this.match.boardState;
-    response.myTurn = !lastPlayedByThisPlayer;
-    if (this.match.matchResult === DotsMatchResultState.result) {
-      response.matchResult = lastPlayedByThisPlayer
-        ? ResponseDotsMatchResultState.win
-        : ResponseDotsMatchResultState.lost;
-    } else {
-      response.matchResult = ResponseDotsMatchResultState.inpro;
-    }
-    response.score = this.createScoreResponse(lastPlayedPlayerIndex);
+    const response = this.match.createResponse(playerIndex);
+    response.roomScore = this.createScoreResponse(playerIndex);
     response.starter = firstMove && response.myTurn;
     return response;
   }

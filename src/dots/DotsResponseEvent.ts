@@ -14,6 +14,7 @@ export class DotsResponseEvent {
   myTurn: boolean;
   matchResult: ResponseDotsMatchResultState = ResponseDotsMatchResultState.inpro;
   winState: Array<number>;
-  score: { won: number; lost: number; ties: number };
+  roomScore: { won: number; lost: number; ties: number };
+  matchScore: Array<number>;
   starter: boolean;
 }

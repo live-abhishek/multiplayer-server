@@ -1,6 +1,6 @@
 const initialState = {
-  pageState: "FULFILLED",
-  responseState: { gameType: "dots" }
+  pageState: "MENU",
+  responseState: {}
 };
 
 export default (state = initialState, action) => {

@@ -7,9 +7,6 @@ import "./dots.css";
 class Dots extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      board: [[1, 1], [1, 1, 1, 0, 1], [1, 2], [1, 1, 2, 2, 2], [2, 2]]
-    };
   }
 
   getWaitMessage = () => {
@@ -70,7 +67,7 @@ class Dots extends React.Component {
   };
 
   render() {
-    const { board } = this.state;
+    const { board } = this.props;
     return (
       <div className="dots-center-area">
         <div className="dots-score-holder">

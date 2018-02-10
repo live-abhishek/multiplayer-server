@@ -1,9 +1,11 @@
 import React from "react";
 import Dots from "./dots";
 import { connect } from "react-redux";
+import { sendMove } from "./dotsAction";
+import { sendMoveRequest } from "../../socketHelper/socektDotsProvider";
 
 const DotsContainer = props => {
-  return <Dots />;
+  return <Dots matchState={props.matchState} onCellClick={props.sendMove} />;
 };
 
 const mapStateToProps = state => {
@@ -14,7 +16,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendMove: moveEventData => {}
+    sendMove: moveEventData => {
+      sendMoveRequest(moveEventData);
+      dispatch(sendMove(moveEventData));
+    }
   };
 };
 

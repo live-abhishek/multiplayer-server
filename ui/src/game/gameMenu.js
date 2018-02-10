@@ -9,7 +9,7 @@ const gameMenu = props => {
     props.requestHandler(param);
   };
   return (
-    <div className="menu">
+    <div className="game-menu-menu">
       <div className="item">
         <SimpleMediaCard
           onClick={clickHandler("tictactoe")}
@@ -18,7 +18,7 @@ const gameMenu = props => {
           detail="Play a quick game with a random person around the globe"
         />
       </div>
-      <div className="item">
+      <div className="game-menu-item">
         <SimpleMediaCard
           // onClick={clickHandler("tictactoe2")}
           image={comingSoonImage}

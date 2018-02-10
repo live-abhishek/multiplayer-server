@@ -1,4 +1,4 @@
-.menu {
+.game-menu-menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
   grid-auto-rows: minmax(100px, auto);
@@ -9,6 +9,6 @@
   max-width: 600px;
 }
 
-.item {
+.game-menu-item {
   margin: 10px;
 }

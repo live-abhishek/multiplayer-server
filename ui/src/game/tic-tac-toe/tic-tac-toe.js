@@ -25,8 +25,8 @@ class TicTacToeBoard extends React.Component {
   getCellClasses = index => {
     const { winState } = this.props.matchState;
     return classNames({
-      cell: true,
-      "cell-background-transition": winState.some(cell => cell === index)
+      "ttt-cell": true,
+      "ttt-cell-background-transition": winState.some(cell => cell === index)
     });
   };
 
@@ -42,7 +42,7 @@ class TicTacToeBoard extends React.Component {
     if (starter) {
       return (
         <Popout>
-          <div className="start">Start</div>
+          <div className="ttt-start">Start</div>
         </Popout>
       );
     }
@@ -51,45 +51,41 @@ class TicTacToeBoard extends React.Component {
   render() {
     const { board, score } = this.props.matchState;
     return (
-      <div className="center-area">
-        <div className="score-holder">
-          <ScoreBoard
-            won={score.won}
-            lost={score.lost}
-            ties={score.ties}
-          />
+      <div className="ttt-center-area">
+        <div className="ttt-score-holder">
+          <ScoreBoard won={score.won} lost={score.lost} ties={score.ties} />
         </div>
-        <div className="board">
+        <div className="ttt-board">
           {board.map((cell, index) => {
             return (
-              <div key={`${index}`} className="border-holder">
+              <div key={`${index}`} className="ttt-border-holder">
                 <div className={this.getCellClasses(index)}>
                   {cell === 0 && (
                     <img
                       src="https://image.ibb.co/c0q1Ew/transparent.png"
                       alt=""
-                      className="cell-content-empty"
+                      className="ttt-cell-content-empty"
                       onClick={this.handleCellClick(index)}
                     />
                   )}
                   {cell === 1 && (
                     <Popout>
-                      <img src={oImage} alt="" className="cell-content" />
+                      <img src={oImage} alt="" className="ttt-cell-content" />
                     </Popout>
                   )}
                   {cell === 2 && (
                     <Popout>
-                      <img src={xImage} alt="" className="cell-content" />
+                      <img src={xImage} alt="" className="ttt-cell-content" />
                     </Popout>
                   )}
                 </div>
               </div>
             );
           })}
-        </div >
-        <div className="turn-msg">{this.getWaitMessage()}</div>
+        </div>
+        <div className="ttt-turn-msg">{this.getWaitMessage()}</div>
         {this.getStartIndicator()}
-      </div >
+      </div>
     );
   }
 }

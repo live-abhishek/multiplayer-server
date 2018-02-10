@@ -13,13 +13,13 @@ export const dotsSocketEventRegister = socket => {
   });
 
   socket.on("gameMoveResponse", moveRespData => {
-    if (matchRespData.gameType === DOTS) {
+    if (moveRespData.gameType === DOTS) {
       store.dispatch(dotsAction.gameMoveResponse(moveRespData));
     }
   });
 
   socket.on("playerDisconnected", disconnectionData => {
-    if (matchRespData.gameType === DOTS) {
+    if (disconnectionData.gameType === DOTS) {
       store.dispatch(dotsAction.paylerDisconnected(disconnectionData));
     }
   });

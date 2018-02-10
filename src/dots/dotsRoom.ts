@@ -27,7 +27,7 @@ export class DotsRoom extends Room {
     if (!this.isAvailable()) {
       logger.error("Cannot add anymore player in this room");
       return;
-  }
+    }
     this.players.push(player);
     if (!this.isAvailable()) {
       this.startGame();
@@ -39,12 +39,12 @@ export class DotsRoom extends Room {
   processEvent(event: any, player: Player): void {
     if (this.isRoomClosed()) {
       return;
-  }
+    }
     this.updateMatchState(event, player);
     this.sendResponse();
     if (this.match.matchResult === DotsMatchResultState.result) {
       this.startNewGame();
-  }
+    }
   }
 
   private updateMatchState(event: any, player: Player) {
@@ -53,7 +53,7 @@ export class DotsRoom extends Room {
     this.updateBoardScore();
     this.updateMatchResult();
     this.updateRoomScore();
-}
+  }
 
   private processMove(event: DotsRequestEvent, player: Player) {
     // updateBoardState

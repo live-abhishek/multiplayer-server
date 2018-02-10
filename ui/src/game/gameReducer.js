@@ -1,6 +1,6 @@
 const initialState = {
-  pageState: "MENU",
-  responseState: {}
+  pageState: "FULFILLED",
+  responseState: { gameType: "dots" }
 };
 
 export default (state = initialState, action) => {
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
         ...state,
         pageState: "MENU",
         responseState: {}
-      }
+      };
     default:
       break;
   }

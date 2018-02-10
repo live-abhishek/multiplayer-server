@@ -16,7 +16,7 @@ export class DotsRoom extends Room {
   match: DotsMatch;
   roomName: string;
   gameType: string;
-  private score: Array<number> = [0, 0];
+  private score: Array<number> = [0, 0, 0];
 
   constructor(roomName: string) {
     super(roomName);
@@ -48,7 +48,7 @@ export class DotsRoom extends Room {
   }
 
   private updateMatchState(event: any, player: Player) {
-    const dotsEvent = <DotsRequestEvent>event;
+    const dotsEvent = event as DotsRequestEvent;
     this.processMove(dotsEvent, player);
     this.updateBoardScore();
     this.updateMatchResult();

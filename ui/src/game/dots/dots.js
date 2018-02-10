@@ -22,7 +22,7 @@ class Dots extends React.Component {
   createDots = count => {
     const dots = [];
     for (let i = 0; i < count; i++) {
-      dots.push(<div className="dot" />);
+      dots.push(<div className="dots-dot" />);
     }
     return dots;
   };
@@ -30,8 +30,8 @@ class Dots extends React.Component {
   renderHorizontalLineRow = row => {
     const cellHorLines = row.map(cell => {
       return (
-        <div className="hor-cell">
-          <div className="hor-line" />
+        <div className="dots-hor-cell">
+          <div className="dots-hor-line" />
         </div>
       );
     });
@@ -49,11 +49,11 @@ class Dots extends React.Component {
   renderVerticalLineRow = row => {
     const verLine = row.map((cell, colIndex) => {
       if (colIndex % 2) {
-        return <div className="box" />;
+        return <div className="dots-box" />;
       } else {
         return (
-          <div className="ver-cell">
-            <div className="ver-line" />
+          <div className="dots-ver-cell">
+            <div className="dots-ver-line" />
           </div>
         );
       }
@@ -72,11 +72,11 @@ class Dots extends React.Component {
   render() {
     const { board } = this.state;
     return (
-      <div className="center-area">
-        <div className="score-holder">
+      <div className="dots-center-area">
+        <div className="dots-score-holder">
           <ScoreBoard />
         </div>
-        <div className="board">
+        <div className="dots-board">
           {board.map((row, rowIndex) => {
             return this.renderRow(row, rowIndex);
           })}

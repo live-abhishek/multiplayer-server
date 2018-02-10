@@ -1,10 +1,10 @@
-.center-area {
+.dots-center-area {
   width: 60vmin;
   margin-left: auto;
   margin-right: auto;
 }
 
-.board {
+.dots-board {
   height: 60vmin;
   display: grid;
   grid-template-rows: repeat(2, 1fr 5fr) 1fr;
@@ -12,34 +12,34 @@
 }
 
 @media screen and (max-width: 600px) {
-  .center-area {
+  .dots-center-area {
     width: 90vmin;
   }
-  .board {
+  .dots-board {
     height: 90vmin;
   }
 }
 
-.dot {
+.dots-dot {
   background: black;
   border-radius: 50%;
 }
 
-.hor-cell {
+.dots-hor-cell {
   display: grid;
 }
 
-.ver-cell {
+.dots-ver-cell {
   display: grid;
 }
 
-.hor-line {
+.dots-hor-line {
   height: 20%;
   background: lightgray;
   align-self: center;
 }
 
-.ver-line {
+.dots-ver-line {
   width: 20%;
   background: lightgray;
   justify-self: center;

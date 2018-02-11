@@ -44,3 +44,22 @@
   background: lightgray;
   justify-self: center;
 }
+
+.dots-box {
+}
+
+.dots-box-p1 {
+  background: lightpink;
+}
+
+.dots-box-p2 {
+  background: skyblue;
+}
+
+.dots-line-p1 {
+  background: red;
+}
+
+.dots-line-p2 {
+  background: blue;
+}

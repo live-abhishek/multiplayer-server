@@ -16,6 +16,7 @@ const initialState = {
   turn: "wait",
   board: initBoard(),
   matchPos: "inpro",
+  matchScore: [0, 0],
   score: {
     won: 0,
     lost: 0,
@@ -27,17 +28,30 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case AppConstants.DOTS_INIT_MATCH:
       state = {
-        ...state
+        ...state,
+        gameType: action.payload.gameType,
+        board: action.payload.boardState,
+        matchPos: action.payload.matchResult,
+        turn: action.payload.myTurn ? "me" : "opp",
+        matchScore: action.payload.matchScore,
+        score: action.payload.roomScore
       };
       break;
     case AppConstants.DOTS_SEND_MOVE:
       state = {
-        ...state
+        ...state,
+        turn: "wait"
       };
       break;
     case AppConstants.DOTS_GAME_MOVE_RESPONSE:
       state = {
-        ...state
+        ...state,
+        gameType: action.payload.gameType,
+        board: action.payload.boardState,
+        matchPos: action.payload.matchResult,
+        turn: action.payload.myTurn ? "me" : "opp",
+        matchScore: action.payload.matchScore,
+        score: action.payload.roomScore
       };
       break;
   }

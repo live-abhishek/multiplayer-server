@@ -53,7 +53,12 @@ class TicTacToeBoard extends React.Component {
     return (
       <div className="ttt-center-area">
         <div className="ttt-score-holder">
-          <ScoreBoard won={score.won} lost={score.lost} ties={score.ties} />
+          <ScoreBoard
+            showTies={true}
+            won={score.won}
+            lost={score.lost}
+            ties={score.ties}
+          />
         </div>
         <div className="ttt-board">
           {board.map((cell, index) => {

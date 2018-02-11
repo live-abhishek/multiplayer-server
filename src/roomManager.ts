@@ -14,7 +14,7 @@ export class RoomManager {
   private static roomManager: RoomManager;
   private rooms: Array<IRoom> = [];
   private playerRoomMap: { [palyerId: string]: IRoom } = {};
-  private constructor() { }
+  private constructor() {}
 
   static getRoomManager(): RoomManager {
     if (!RoomManager.roomManager) {
@@ -70,7 +70,10 @@ export class RoomManager {
     logger.info("requested by: ", player.id, JSON.stringify(requestData));
     this.roomPlayerFromMap(player); // to ensure that player is not already part of some room
     const availableRoom = this.rooms.find(
-      room => room.gameType === requestData.gameType && room.isAvailable() && !room.isRoomClosed()
+      room =>
+        room.gameType === requestData.gameType &&
+        room.isAvailable() &&
+        !room.isRoomClosed()
     );
     if (availableRoom) {
       this.addPlayerToRoom(availableRoom, player);
@@ -111,7 +114,7 @@ export class RoomManager {
     name: string;
     gameType: string;
     players: Array<string>;
-    isRoomClosed: boolean
+    isRoomClosed: boolean;
   }> {
     const rooms = this.rooms.map(room => {
       return {

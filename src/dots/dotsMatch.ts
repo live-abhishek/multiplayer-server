@@ -88,7 +88,7 @@ export class DotsMatch {
   ): boolean {
     let boxFormed = false;
     this.boardState[rowNum][colNum] = cellNewState;
-    if (rowNum % 2 !== 0) {
+    if (rowNum % 2 === 0) {
       // horizontal line drawn
       // if not the top most row horizontal line, then check if a box is formed just above
       if (rowNum !== 0) {

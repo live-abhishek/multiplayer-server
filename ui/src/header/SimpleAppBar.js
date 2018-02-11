@@ -13,6 +13,7 @@ import Cookies from "universal-cookie";
 import { connect } from "react-redux";
 import { leaveRoom } from "../game/gameAction";
 import { sendLeaveRoomSignal } from "../socketHelper/socketProvider";
+import CustomDrawer from "./CustomDrawer";
 
 const styles = theme => ({
   root: {
@@ -33,7 +34,19 @@ class ButtonAppBar extends React.Component {
   };
   constructor(props) {
     super(props);
+    this.state = {
+      drawerOpen: false
+    };
   }
+
+  handleToggleDrawer = () => {
+    this.setState(prevState => ({ drawerOpen: !prevState.drawerOpen }));
+  };
+
+  handleToggleButtonClick = () => {
+    alert("ddd");
+  };
+
   render() {
     return (
       <div className={this.props.classes.root}>
@@ -43,8 +56,13 @@ class ButtonAppBar extends React.Component {
               className={this.props.classes.menuButton}
               color="contrast"
               aria-label="Menu"
+              onClick={this.handleToggleDrawer}
             >
               <MenuIcon />
+              <CustomDrawer
+                open={this.state.drawerOpen}
+                onButtonClick={this.handleToggleButtonClick}
+              />
             </IconButton>
             <Typography
               type="title"
@@ -53,21 +71,23 @@ class ButtonAppBar extends React.Component {
             >
               Notebook Games
             </Typography>
-            {this.props.pageState !== "MENU" && (< Button color="contrast" onClick={this.props.leaveRoom}>
-              Leave
-            </Button>)}
+            {this.props.pageState !== "MENU" && (
+              <Button color="contrast" onClick={this.props.leaveRoom}>
+                Leave
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
-      </div >
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    pageState: state.game.pageState,
+    pageState: state.game.pageState
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -76,6 +96,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(leaveRoom());
     }
   };
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ButtonAppBar));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(ButtonAppBar)
+);

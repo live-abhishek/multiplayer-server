@@ -26,7 +26,7 @@
 }
 
 .dots-dot {
-  background: black;
+  background: limegreen;
   border-radius: 50%;
 }
 
@@ -39,14 +39,14 @@
 }
 
 .dots-hor-line {
-  height: 20%;
-  background: lightgray;
+  height: 30%;
+  background: rgb(240, 240, 240);
   align-self: center;
 }
 
 .dots-ver-line {
-  width: 20%;
-  background: lightgray;
+  width: 30%;
+  background: rgb(240, 240, 240);
   justify-self: center;
 }
 
@@ -56,19 +56,19 @@
 }
 
 .dots-box-p1 {
-  background: lightpink;
+  background: lightsalmon;
 }
 
 .dots-box-p2 {
-  background: skyblue;
+  background: turquoise;
 }
 
 .dots-line-p1 {
-  background: red;
+  background: orangered;
 }
 
 .dots-line-p2 {
-  background: blue;
+  background: teal;
 }
 
 .dots-match-score-container {
@@ -78,18 +78,18 @@
   flex: 1;
   font-family: "ThrowMyHandsUpintheAir", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
-  font-size: 125%;
+  font-size: 150%;
   font-weight: bold;
 }
 
 .dots-match-score-p1 {
-  color: lightpink;
+  color: lightsalmon;
   margin-left: 5%;
   text-align: left;
 }
 
 .dots-match-score-p2 {
-  color: skyblue;
+  color: turquoise;
   margin-right: 5%;
   text-align: right;
 }

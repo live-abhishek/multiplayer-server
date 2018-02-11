@@ -19,3 +19,10 @@ export function leaveRoom() {
     type: AppConstants.LEAVE_ROOM
   };
 }
+
+export function playerDisconnected(disconnectionData) {
+  return {
+    type: AppConstants.DISCONNECTED,
+    payload: disconnectionData
+  };
+}

@@ -1,30 +1,24 @@
 import store from "../store";
+import * as AppConstants from "../constants";
 import * as dotsAction from "../game/dots/dotsAction";
 
-const DOTS = "dots";
 let mainSocket;
 
 export const dotsSocketEventRegister = socket => {
   mainSocket = socket;
-  socket.on("gameInit", matchInitData => {
-    if (matchInitData.gameType === DOTS) {
+  socket.on(AppConstants.SOCKET_GAME_INIT, matchInitData => {
+    if (matchInitData.gameType === AppConstants.DOTS) {
       store.dispatch(dotsAction.initializeMatch(matchInitData));
     }
   });
 
-  socket.on("gameMoveResponse", moveRespData => {
+  socket.on(AppConstants.SOCKET_GAME_MOVE_RESPONSE, moveRespData => {
     if (moveRespData.gameType === DOTS) {
       store.dispatch(dotsAction.gameMoveResponse(moveRespData));
-    }
-  });
-
-  socket.on("playerDisconnected", disconnectionData => {
-    if (disconnectionData.gameType === DOTS) {
-      store.dispatch(dotsAction.playerDisconnected(disconnectionData));
     }
   });
 };
 
 export const sendMoveRequest = moveEventData => {
-  mainSocket.emit("gameMove", moveEventData);
+  mainSocket.emit(AppConstants.SOCKET_GAME_MOVE, moveEventData);
 };

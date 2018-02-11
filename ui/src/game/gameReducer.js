@@ -1,7 +1,7 @@
 import * as AppConstants from "../constants";
 
 const initialState = {
-  pageState: "MENU",
+  pageState: AppConstants.MENU,
   responseState: {}
 };
 
@@ -10,27 +10,27 @@ export default (state = initialState, action) => {
     case AppConstants.GAME_REQUEST:
       state = {
         ...state,
-        pageState: "WAITING"
+        pageState: AppConstants.WAITING
       };
       break;
     case AppConstants.GAME_REQUEST_FULFILLED:
       state = {
         ...state,
-        pageState: "FULFILLED",
+        pageState: AppConstants.FULFILLED,
         responseState: action.payload
       };
       break;
-    case "DISCONNECTED":
+    case AppConstants.DISCONNECTED:
       state = {
         ...state,
-        pageState: "MENU",
+        pageState: AppConstants.MENU,
         responseState: action.payload
       };
       break;
     case AppConstants.LEAVE_ROOM:
       state = {
         ...state,
-        pageState: "MENU",
+        pageState: AppConstants.MENU,
         responseState: {}
       };
     default:

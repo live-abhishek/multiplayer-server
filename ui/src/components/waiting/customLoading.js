@@ -4,15 +4,15 @@ import gameImage from "../../images/game.svg";
 
 export const CustomLoading = props => {
   return (
-    <div className="grid">
-      <div className="loading">
-        <img src={gameImage} alt="" />
-        <div className="button orange" />
-        <div className="button red" />
-        <div className="button green" />
-        <div className="button blue" />
+    <div className="custload-grid">
+      <div className="custload-loading">
+        <div className="custload-button custload-orange" />
+        <div className="custload-button custload-red" />
+        <div className="custload-button custload-green" />
+        <div className="custload-button custload-blue" />
+        <img className="custload-img" src={gameImage} alt="" />
       </div>
-      <div className="wait-msg">
+      <div className="custload-wait-msg">
         Please Wait...<br />We are trying to find an oppponent for you.
       </div>
     </div>

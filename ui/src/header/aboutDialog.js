@@ -1,7 +1,11 @@
 import React from "react";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
-import Dialog, { DialogActions, DialogContent } from "material-ui/Dialog";
+import Dialog, {
+  DialogContent,
+  DialogTitle,
+  DialogContentText
+} from "material-ui/Dialog";
 import Typography from "material-ui/Typography";
 import ReactJSIcon from "../images/react.png";
 import HeartIcon from "../images/like.png";
@@ -17,57 +21,51 @@ class AboutDialog extends React.Component {
 
   render() {
     return (
-      <Dialog
-        open={this.props.open}
-        ignoreBackdropClick={false}
-        ignoreEscapeKeyUp={false}
-        onClose={this.props.onClose}
-      >
+      <Dialog open={this.props.open} onClose={this.props.onClose}>
+        <DialogTitle>{"Notebook Games"}</DialogTitle>
         <DialogContent>
-          <Typography variant="caption">
-            <h1>Notebook Games</h1>
-          </Typography>
-          <Typography variant="subheading">
-            <h3>Made with</h3>
-          </Typography>
+          <DialogContentText className="about-sub-header">
+            Made with
+          </DialogContentText>
           <ul>
             <li>
-              <Typography>
+              <DialogContentText>
                 NodeJS <img src={NodeIcon} alt="love" />
-              </Typography>
+              </DialogContentText>
             </li>
             <li>
-              <Typography>
+              <DialogContentText>
                 ReactJS <img src={ReactJSIcon} alt="love" />
-              </Typography>
+              </DialogContentText>
             </li>
             <li>
-              <Typography>
+              <DialogContentText>
                 Socket.IO <img src={SocketIOIcon} alt="love" />
-              </Typography>
+              </DialogContentText>
             </li>
             <li>
-              <Typography>
-                Typescript <img src={TypescriptIcon} alt="love" />
-              </Typography>
+              <DialogContentText>
+                TypeScript <img src={TypescriptIcon} alt="love" />
+              </DialogContentText>
             </li>
             <li>
-              <Typography>
+              <DialogContentText>
                 With Love <img src={HeartIcon} alt="love" />
-              </Typography>
-            </li>
-            <li>
-              <Typography>
-                <a
-                  href="https://github.com/live-abhishek/multiplayer-server"
-                  target="_blank"
-                >
-                  Go to Github
-                </a>{" "}
-                <img src={GithubIcon} alt="github" />
-              </Typography>
+              </DialogContentText>
             </li>
           </ul>
+          <DialogContentText>
+            <h4>
+              <a
+                href="https://github.com/live-abhishek/multiplayer-server"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Go to Github
+              </a>{" "}
+              <img src={GithubIcon} alt="github" />
+            </h4>
+          </DialogContentText>
         </DialogContent>
       </Dialog>
     );

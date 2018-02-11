@@ -106,9 +106,3 @@
     opacity: 1;
   }
 }
-
-@font-face {
-  font-family: "ThrowMyHandsUpintheAir";
-  src: local("ThrowMyHandsUpintheAir"),
-    url(../../fonts/ThrowMyHandsUpintheAir.ttf);
-}

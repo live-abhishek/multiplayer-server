@@ -3,5 +3,10 @@
 }
 
 .App {
-   text-align: center;
- }
+  text-align: center;
+}
+
+@font-face {
+  font-family: "ThrowMyHandsUpintheAir";
+  src: local("ThrowMyHandsUpintheAir"), url(./fonts/ThrowMyHandsUpintheAir.ttf);
+}

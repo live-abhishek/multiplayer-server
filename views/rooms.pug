@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  table.table.table-striped
+    tr 
+      th(scope='col') Room Name
+      th(scope='col') Game
+      th(scope='col') Closed
+      th(scope='col') Players
+    each room in rooms
+      tr
+        td(scope='row') #{room.name}
+        td #{room.gameType}
+        td #{room.isRoomClosed}
+        td #{room.players}

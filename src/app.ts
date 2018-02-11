@@ -10,6 +10,8 @@ import { logger } from "./bunyan";
 import { RoomManager } from "./roomManager";
 
 const app = express();
+app.set("views", path.join(__dirname, "..", "views"));
+app.set("view engine", "pug");
 const server = require("http").Server(app);
 const io = sio(server);
 
@@ -27,8 +29,7 @@ app.get("/hello", (req: Request, res: Response) => {
 
 app.get("/rm", (req: Request, res: Response) => {
   const rm = RoomManager.getRoomManager();
-  res.send(JSON.stringify(rm.getAllRoomInfo()));
-  res.end();
+  res.render("rooms", { rooms: rm.getAllRoomInfo() });
 });
 
 const port = process.env.PORT || 12345;

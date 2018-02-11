@@ -10,33 +10,32 @@
     "build-ts": "tsc",
     "build-ui": "cd ui && npm install && npm run build",
     "watch-ts": "tsc -w",
-    "watch":
-      "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\" ",
+    "watch": "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run watch-node\" ",
     "serve": "node dist/app.js",
     "start": "npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "serve-debug": "nodemon --inspect dist/app.js",
-    "watch-debug":
-      "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run serve-debug\" "
+    "watch-debug": "concurrently -k -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-ts\" \"npm run serve-debug\" "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bunyan": "^1.8.12",
-    "dotenv-extended": "^2.0.1",
-    "express": "^4.16.2",
-    "log4js": "^2.3.11",
-    "socket.io": "^2.0.4",
-    "universal-cookie": "^2.1.0",
-    "uuid": "^3.1.0",
-    "typescript": "^2.6.2",
     "@types/bunyan": "^1.8.4",
     "@types/express": "github:types/express",
     "@types/node": "^9.3.0",
     "@types/socket.io": "^1.4.31",
-    "@types/uuid": "^3.4.3"
+    "@types/uuid": "^3.4.3",
+    "bunyan": "^1.8.12",
+    "dotenv-extended": "^2.0.1",
+    "express": "^4.16.2",
+    "log4js": "^2.3.11",
+    "pug": "^2.0.0-rc.4",
+    "socket.io": "^2.0.4",
+    "typescript": "^2.6.2",
+    "universal-cookie": "^2.1.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",

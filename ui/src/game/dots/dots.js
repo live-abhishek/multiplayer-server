@@ -16,43 +16,47 @@ class Dots extends React.Component {
     }
   };
 
-  createDots = count => {
-    const dots = [];
-    for (let i = 0; i < count; i++) {
-      dots.push(<div className="dots-dot" />);
-    }
-    return dots;
+  createDot = () => {
+    return <div className="dots-dot" />;
+  };
+
+  createBox = () => {
+    return <div className="dots-box" />;
+  };
+
+  createHorCell = () => {
+    return (
+      <div className="dots-hor-cell">
+        <div className="dots-hor-line" />
+      </div>
+    );
+  };
+
+  createVerCell = () => {
+    return (
+      <div className="dots-ver-cell">
+        <div className="dots-ver-line" />
+      </div>
+    );
   };
 
   renderHorizontalLineRow = row => {
-    const cellHorLines = row.map(cell => {
-      return (
-        <div className="dots-hor-cell">
-          <div className="dots-hor-line" />
-        </div>
-      );
+    const horLine = row.map((cell, colIndex) => {
+      if (colIndex % 2 === 0) {
+        return this.createDot();
+      } else {
+        return this.createHorCell();
+      }
     });
-    const dots = this.createDots(row.length + 1);
-    // mix dots & horLines alternately, with dots first
-    const horLine = [];
-    for (let i = 0; i < row.length; i++) {
-      horLine.push(dots[i]);
-      horLine.push(cellHorLines[i]);
-    }
-    horLine.push(dots[row.length]);
     return horLine;
   };
 
   renderVerticalLineRow = row => {
     const verLine = row.map((cell, colIndex) => {
-      if (colIndex % 2) {
-        return <div className="dots-box" />;
+      if (colIndex % 2 === 0) {
+        return this.createVerCell();
       } else {
-        return (
-          <div className="dots-ver-cell">
-            <div className="dots-ver-line" />
-          </div>
-        );
+        return this.createBox();
       }
     });
     return verLine;
@@ -67,7 +71,7 @@ class Dots extends React.Component {
   };
 
   render() {
-    const { board } = this.props;
+    const { board } = this.props.matchState;
     return (
       <div className="dots-center-area">
         <div className="dots-score-holder">

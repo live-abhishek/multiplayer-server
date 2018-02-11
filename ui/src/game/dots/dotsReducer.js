@@ -26,10 +26,19 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case AppConstants.DOTS_INIT_MATCH:
+      state = {
+        ...state
+      };
       break;
     case AppConstants.DOTS_SEND_MOVE:
+      state = {
+        ...state
+      };
       break;
     case AppConstants.DOTS_GAME_MOVE_RESPONSE:
+      state = {
+        ...state
+      };
       break;
   }
   return state;

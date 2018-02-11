@@ -20,7 +20,7 @@ const gameMenu = props => {
       </div>
       <div className="game-menu-item">
         <SimpleMediaCard
-          // onClick={clickHandler("tictactoe2")}
+          onClick={clickHandler("dots")}
           image={comingSoonImage}
           title="Coming Soon"
           detail="Stay Tuned"

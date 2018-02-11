@@ -1,3 +1,5 @@
+import * as AppConstants from "../constants";
+
 const initialState = {
   pageState: "MENU",
   responseState: {}
@@ -5,13 +7,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "GAME_REQUEST":
+    case AppConstants.GAME_REQUEST:
       state = {
         ...state,
         pageState: "WAITING"
       };
       break;
-    case "GAME_REQUEST_FULFILLED":
+    case AppConstants.GAME_REQUEST_FULFILLED:
       state = {
         ...state,
         pageState: "FULFILLED",
@@ -25,7 +27,7 @@ export default (state = initialState, action) => {
         responseState: action.payload
       };
       break;
-    case "LEAVE_ROOM":
+    case AppConstants.LEAVE_ROOM:
       state = {
         ...state,
         pageState: "MENU",

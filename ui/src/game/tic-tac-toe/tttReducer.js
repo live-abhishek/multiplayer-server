@@ -1,3 +1,5 @@
+import * as AppConstants from "../../constants";
+
 const initialState = {
   // "wait", "me", "opp"
   turn: "wait",
@@ -14,7 +16,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "INIT_TIC_TAC_TOE_MATCH":
+    case AppConstants.TTT_INIT_MATCH:
       state = {
         ...state,
         gameType: action.payload.gameType,
@@ -26,13 +28,13 @@ export default (state = initialState, action) => {
         starter: action.payload.starter
       };
       break;
-    case "SEND_MOVE":
+    case AppConstants.TTT_SEND_MOVE:
       state = {
         ...state,
         turn: "wait"
       };
       break;
-    case "GAME_MOVE_RESPONSE":
+    case AppConstants.TTT_GAME_MOVE_RESPONSE:
       state = {
         ...state,
         gameType: action.payload.gameType,

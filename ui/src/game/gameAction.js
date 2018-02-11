@@ -1,19 +1,21 @@
+import * as AppConstants from "../constants";
+
 export function requestGame(gameType) {
   return {
-    type: "GAME_REQUEST",
+    type: AppConstants.GAME_REQUEST,
     payload: gameType
   };
 }
 
 export function requestGameFulfilled(data) {
   return {
-    type: "GAME_REQUEST_FULFILLED",
+    type: AppConstants.GAME_REQUEST_FULFILLED,
     payload: data
   };
 }
 
 export function leaveRoom() {
   return {
-    type: "LEAVE_ROOM",
-  }
+    type: AppConstants.LEAVE_ROOM
+  };
 }

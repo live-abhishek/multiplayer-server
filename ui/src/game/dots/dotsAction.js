@@ -1,25 +1,27 @@
+import * as AppConstants from "../../constants";
+
 export function initializeMatch(matchInitData) {
   return {
-    type: "INIT_DOTS_MATCH",
+    type: AppConstants.DOTS_INIT_MATCH,
     payload: matchInitData
   };
 }
 
 export function sendMove(moveEventData) {
   return {
-    type: "SEND_MOVE",
+    type: AppConstants.DOTS_SEND_MOVE,
     payload: moveEventData
   };
 }
 
 export function gameMoveResponse(moveRespData) {
   return {
-    type: "GAME_MOVE_RESPONSE",
+    type: AppConstants.DOTS_GAME_MOVE_RESPONSE,
     payload: moveRespData
   };
 }
 
-export function paylerDisconnected(disconnectionData) {
+export function playerDisconnected(disconnectionData) {
   return {
     type: "DISCONNECTED",
     payload: disconnectionData

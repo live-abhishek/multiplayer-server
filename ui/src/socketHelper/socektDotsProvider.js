@@ -20,7 +20,7 @@ export const dotsSocketEventRegister = socket => {
 
   socket.on("playerDisconnected", disconnectionData => {
     if (disconnectionData.gameType === DOTS) {
-      store.dispatch(dotsAction.paylerDisconnected(disconnectionData));
+      store.dispatch(dotsAction.playerDisconnected(disconnectionData));
     }
   });
 };

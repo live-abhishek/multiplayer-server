@@ -1,3 +1,5 @@
+import * as AppConstants from "../../constants";
+
 const initBoard = () => {
   const boardState = [];
   for (let i = 0; i < 11; i++) {
@@ -23,11 +25,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "INIT_DOTS_MATCH":
+    case AppConstants.DOTS_INIT_MATCH:
       break;
-    case "SEND_MOVE":
+    case AppConstants.DOTS_SEND_MOVE:
       break;
-    case "GAME_MOVE_RESPONSE":
+    case AppConstants.DOTS_GAME_MOVE_RESPONSE:
       break;
   }
   return state;

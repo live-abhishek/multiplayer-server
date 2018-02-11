@@ -1,20 +1,22 @@
+import * as AppConstants from "../../constants";
+
 export function initializeMatch(matchInitData) {
   return {
-    type: "INIT_TIC_TAC_TOE_MATCH",
+    type: AppConstants.TTT_INIT_MATCH,
     payload: matchInitData
   };
 }
 
 export function sendMove(moveEventData) {
   return {
-    type: "SEND_MOVE",
+    type: AppConstants.TTT_SEND_MOVE,
     payload: moveEventData
   };
 }
 
 export function gameMoveResponse(moveRespData) {
   return {
-    type: "GAME_MOVE_RESPONSE",
+    type: AppConstants.TTT_GAME_MOVE_RESPONSE,
     payload: moveRespData
   };
 }

@@ -71,7 +71,7 @@ export class DotsRoom extends Room {
   }
 
   private startGame() {
-    if (!this.isRoomClosed()) {
+    if (this.isRoomClosed()) {
       return;
     }
     this.match = new DotsMatch();

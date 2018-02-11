@@ -33,14 +33,17 @@ export class DotsRoom extends Room {
       this.startGame();
     }
   }
+
   isAvailable(): boolean {
     return this.players.length < DotsRoom.maxPlayers;
   }
+
   processEvent(event: any, player: Player): void {
     if (this.isRoomClosed()) {
       return;
     }
     this.updateMatchState(event, player);
+    this.updateRoomScore();
     this.sendResponse();
     if (this.match.matchResult === DotsMatchResultState.result) {
       this.startNewGame();
@@ -53,7 +56,6 @@ export class DotsRoom extends Room {
     this.match.processMove(dotsEvent, cellNewState);
     this.match.updateBoardScore();
     this.match.updateMatchResult();
-    this.updateRoomScore();
   }
 
   private updateRoomScore() {

@@ -13,7 +13,7 @@ const styles = {
 class CustomDrawer extends React.Component {
   render() {
     return (
-      <Drawer anchor="left" open={this.props.open} onClose={this.props.open}>
+      <Drawer anchor="left" open={this.props.open}>
         <div
           tabIndex={0}
           role="button"

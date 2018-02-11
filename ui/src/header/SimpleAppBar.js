@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { leaveRoom } from "../game/gameAction";
 import { sendLeaveRoomSignal } from "../socketHelper/socketProvider";
 import CustomDrawer from "./CustomDrawer";
+import AboutDialog from "./aboutDialog";
 
 const styles = theme => ({
   root: {
@@ -35,7 +36,8 @@ class ButtonAppBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawerOpen: false
+      drawerOpen: false,
+      infoDialogOpen: false
     };
   }
 
@@ -44,7 +46,7 @@ class ButtonAppBar extends React.Component {
   };
 
   handleToggleButtonClick = () => {
-    alert("ddd");
+    this.setState(prevState => ({ infoDialogOpen: !prevState.infoDialogOpen }));
   };
 
   render() {
@@ -78,6 +80,10 @@ class ButtonAppBar extends React.Component {
             )}
           </Toolbar>
         </AppBar>
+        <AboutDialog
+          open={this.state.infoDialogOpen}
+          onClose={this.handleToggleButtonClick}
+        />
       </div>
     );
   }

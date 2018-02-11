@@ -30,9 +30,9 @@ class Dots extends React.Component {
     if (matchPos === "inpro" && turn === "wait") {
       return <LinearIndeterminate />;
     } else if (matchPos === "inpro" && turn === "me") {
-      return <div className="dots-me dots-turn">Your turn </div>;
+      return <div className="dots-me dots-turn">your turn </div>;
     } else if (matchPos === "inpro" && turn === "opp") {
-      return <div className="dots-opp dots-turn">Opp turn</div>;
+      return <div className="dots-opp dots-turn">opp turn</div>;
     }
   };
 

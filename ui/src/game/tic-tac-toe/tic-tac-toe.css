@@ -106,3 +106,18 @@
     opacity: 1;
   }
 }
+
+.ttt-turn {
+  font-family: "ThrowMyHandsUpintheAir", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
+  font-size: 125%;
+  font-weight: bold;
+}
+
+.ttt-me {
+  color: green;
+}
+
+.ttt-opp {
+  color: crimson;
+}

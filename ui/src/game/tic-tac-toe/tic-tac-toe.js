@@ -30,21 +30,14 @@ class TicTacToeBoard extends React.Component {
     });
   };
 
-  getWaitMessage = () => {
+  getTurnMessage = () => {
     const { turn, matchPos } = this.props.matchState;
     if (matchPos === "inpro" && turn === "wait") {
       return <LinearIndeterminate />;
-    }
-  };
-
-  getStartIndicator = () => {
-    const { starter } = this.props.matchState;
-    if (starter) {
-      return (
-        <Popout>
-          <div className="ttt-start">Start</div>
-        </Popout>
-      );
+    } else if (matchPos === "inpro" && turn === "me") {
+      return <div className="dots-me dots-turn">your turn </div>;
+    } else if (matchPos === "inpro" && turn === "opp") {
+      return <div className="dots-opp dots-turn">opp turn</div>;
     }
   };
 
@@ -88,8 +81,7 @@ class TicTacToeBoard extends React.Component {
             );
           })}
         </div>
-        <div className="ttt-turn-msg">{this.getWaitMessage()}</div>
-        {this.getStartIndicator()}
+        {this.getTurnMessage()}
       </div>
     );
   }

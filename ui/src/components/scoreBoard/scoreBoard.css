@@ -12,9 +12,12 @@
   height: auto;
   font-family: "ThrowMyHandsUpintheAir", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
-  color: blue;
   font-size: 125%;
   font-weight: bold;
+}
+.header img {
+  width: 25%;
+  height: 25%;
 }
 
 @font-face {

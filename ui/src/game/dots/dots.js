@@ -25,10 +25,14 @@ class Dots extends React.Component {
     }
   };
 
-  getWaitMessage = () => {
+  getTurnMessage = () => {
     const { turn, matchPos } = this.props.matchState;
     if (matchPos === "inpro" && turn === "wait") {
       return <LinearIndeterminate />;
+    } else if (matchPos === "inpro" && turn === "me") {
+      return <div>Your turn </div>;
+    } else if (matchPos === "inpro" && turn === "opp") {
+      return <div>Opp turn</div>;
     }
   };
 
@@ -128,18 +132,33 @@ class Dots extends React.Component {
     }
   };
 
+  getMatchScore = matchScore => {
+    return (
+      <div className="dots-match-score-container">
+        <span className="dots-match-score dots-match-score-p1">
+          {matchScore[0]}
+        </span>
+        <span className="dots-match-score dots-match-score-p2">
+          {matchScore[1]}
+        </span>
+      </div>
+    );
+  };
+
   render() {
-    const { board } = this.props.matchState;
+    const { board, score, matchScore } = this.props.matchState;
     return (
       <div className="dots-center-area">
         <div className="dots-score-holder">
-          <ScoreBoard />
+          <ScoreBoard won={score.won} lost={score.lost} ties={score.ties} />
         </div>
+        {this.getMatchScore(matchScore)}
         <div className="dots-board">
           {board.map((row, rowIndex) => {
             return this.renderRow(row, rowIndex);
           })}
         </div>
+        {this.getTurnMessage()}
       </div>
     );
   }

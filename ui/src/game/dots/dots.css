@@ -46,6 +46,8 @@
 }
 
 .dots-box {
+  width: 100%;
+  height: 100%;
 }
 
 .dots-box-p1 {
@@ -62,4 +64,22 @@
 
 .dots-line-p2 {
   background: blue;
+}
+
+.dots-match-score-container {
+  display: flex;
+}
+.dots-match-score {
+  flex: 1;
+  font-family: "ThrowMyHandsUpintheAir", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
+  font-weight: bold;
+}
+
+.dots-match-score-p1 {
+  color: lightpink;
+}
+
+.dots-match-score-p2 {
+  color: skyblue;
 }

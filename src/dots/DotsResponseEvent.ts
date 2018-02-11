@@ -18,7 +18,6 @@ export class DotsResponseEvent {
   winState: Array<number>;
   roomScore: { won: number; lost: number; ties: number };
   matchScore: Array<number>;
-  starter: boolean;
 
   constructor(match: DotsMatch, playerIndex: number, roomScore: Array<number>) {
     this.boardState = match.boardState;

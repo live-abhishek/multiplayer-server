@@ -10,8 +10,7 @@ const initialState = {
     won: 0,
     lost: 0,
     ties: 0
-  },
-  starter: false
+  }
 };
 
 export default (state = initialState, action) => {
@@ -24,8 +23,7 @@ export default (state = initialState, action) => {
         turn: action.payload.myTurn ? "me" : "opp",
         matchPos: action.payload.matchResult,
         winState: action.payload.winState,
-        score: action.payload.score,
-        starter: action.payload.starter
+        score: action.payload.score
       };
       break;
     case AppConstants.TTT_SEND_MOVE:
@@ -42,8 +40,7 @@ export default (state = initialState, action) => {
         turn: action.payload.myTurn ? "me" : "opp",
         matchPos: action.payload.matchResult,
         winState: action.payload.winState,
-        score: action.payload.score,
-        starter: action.payload.starter
+        score: action.payload.score
       };
       break;
     default:

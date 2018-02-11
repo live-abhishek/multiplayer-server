@@ -1,7 +1,7 @@
 import React from "react";
 import SimpleMediaCard from "../components/simpleMediaCard";
-import tictactoeImage from "../images/tic-tac-toe.jpg";
-import comingSoonImage from "../images/coming-soon.png";
+import tictactoeImage from "../images/tic-tac-toe.png";
+import dots from "../images/dots.png";
 import "./gameMenu.css";
 
 const gameMenu = props => {
@@ -14,16 +14,16 @@ const gameMenu = props => {
         <SimpleMediaCard
           onClick={clickHandler("tictactoe")}
           image={tictactoeImage}
-          title="Tic-Tac-Toe-1"
+          title="Tic-Tac-Toe"
           detail="Play a quick game with a random person around the globe"
         />
       </div>
       <div className="game-menu-item">
         <SimpleMediaCard
           onClick={clickHandler("dots")}
-          image={comingSoonImage}
-          title="Coming Soon"
-          detail="Stay Tuned"
+          image={dots}
+          title="Dots"
+          detail="Play a game of dots"
         />
       </div>
     </div>

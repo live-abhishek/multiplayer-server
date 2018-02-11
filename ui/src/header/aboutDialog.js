@@ -50,7 +50,7 @@ class AboutDialog extends React.Component {
             </li>
             <li>
               <DialogContentText>
-                With Love <img src={HeartIcon} alt="love" />
+                Love <img src={HeartIcon} alt="love" />
               </DialogContentText>
             </li>
           </ul>

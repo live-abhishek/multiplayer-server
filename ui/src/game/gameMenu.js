@@ -10,7 +10,7 @@ const gameMenu = props => {
   };
   return (
     <div className="game-menu-menu">
-      <div className="item">
+      <div className="game-menu-item">
         <SimpleMediaCard
           onClick={clickHandler("tictactoe")}
           image={tictactoeImage}

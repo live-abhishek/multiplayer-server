@@ -73,13 +73,18 @@
   flex: 1;
   font-family: "ThrowMyHandsUpintheAir", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
+  font-size: 125%;
   font-weight: bold;
 }
 
 .dots-match-score-p1 {
   color: lightpink;
+  margin-left: 5%;
+  text-align: left;
 }
 
 .dots-match-score-p2 {
   color: skyblue;
+  margin-right: 5%;
+  text-align: right;
 }

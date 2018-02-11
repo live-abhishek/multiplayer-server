@@ -13,11 +13,12 @@
   font-family: "ThrowMyHandsUpintheAir", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", "Geneva", "Verdana", "sans-serif";
   color: blue;
-  font-size: 200%;
+  font-size: 125%;
   font-weight: bold;
 }
 
 @font-face {
   font-family: "ThrowMyHandsUpintheAir";
-  src: local("ThrowMyHandsUpintheAir"), url(../../fonts/ThrowMyHandsUpintheAir.ttf);
+  src: local("ThrowMyHandsUpintheAir"),
+    url(../../fonts/ThrowMyHandsUpintheAir.ttf);
 }

@@ -17,7 +17,7 @@ export const tictactoeSocketEventRegister = socket => {
   });
 
   socket.on(AppConstants.SOCKET_GAME_MOVE_RESPONSE, moveRespData => {
-    if (moveRespData.gameType === TIC_TAC_TOE) {
+    if (moveRespData.gameType === AppConstants.TIC_TAC_TOE) {
       store.dispatch(gameMoveResponse(moveRespData));
     }
   });

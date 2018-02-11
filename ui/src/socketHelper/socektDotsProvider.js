@@ -13,7 +13,7 @@ export const dotsSocketEventRegister = socket => {
   });
 
   socket.on(AppConstants.SOCKET_GAME_MOVE_RESPONSE, moveRespData => {
-    if (moveRespData.gameType === DOTS) {
+    if (moveRespData.gameType === AppConstants.DOTS) {
       store.dispatch(dotsAction.gameMoveResponse(moveRespData));
     }
   });

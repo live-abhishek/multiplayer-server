@@ -177,7 +177,10 @@ export class DotsRoom extends Room {
     }
     this.match = new DotsMatch();
     this.players.forEach((roomPlayer, idx) => {
-      roomPlayer.socket.emit("gameInit", this.createResponse(idx, true));
+      roomPlayer.socket.emit(
+        "gameInit",
+        new DotsResponseEvent(this.match, idx, this.score)
+      );
     });
   }
 
@@ -190,37 +193,19 @@ export class DotsRoom extends Room {
     );
     setTimeout(() => {
       this.players.forEach((roomPlayer, idx) => {
-        roomPlayer.socket.emit("gameInit", this.createResponse(idx, true));
+        roomPlayer.socket.emit(
+          "gameInit",
+          new DotsResponseEvent(this.match, idx, this.score)
+        );
       });
     }, 2000);
   }
 
   private sendResponse() {
     this.players.forEach((roomPlayer, idx) => {
-      const response = this.createResponse(idx);
+      const response = new DotsResponseEvent(this.match, idx, this.score);
       roomPlayer.socket.emit("gameMoveResponse", response);
     });
-  }
-
-  private createResponse(
-    playerIndex: number,
-    firstMove?: boolean
-  ): DotsResponseEvent {
-    const response = this.match.createResponse(playerIndex);
-    response.roomScore = this.createScoreResponse(playerIndex);
-    response.starter = firstMove && response.myTurn;
-    return response;
-  }
-
-  private createScoreResponse(
-    lastPlayedPlayerIndex: number
-  ): { won: number; lost: number; ties: number } {
-    const scoreResponse = {
-      won: this.score[lastPlayedPlayerIndex],
-      lost: this.score[(lastPlayedPlayerIndex + 1) % DotsRoom.maxPlayers],
-      ties: 0
-    };
-    return scoreResponse;
   }
 
   private getPlayerId(currSocket: any): number {

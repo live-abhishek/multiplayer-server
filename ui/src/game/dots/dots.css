@@ -4,6 +4,11 @@
   margin-right: auto;
 }
 
+.dots-score-holder {
+  margin-top: 5%;
+  width: 100%;
+}
+
 .dots-board {
   height: 60vmin;
   display: grid;

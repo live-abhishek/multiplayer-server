@@ -13,7 +13,7 @@ export const CustomLoading = props => {
         <img className="custload-img" src={gameImage} alt="" />
       </div>
       <div className="custload-wait-msg">
-        Please Wait...<br />We are trying to find an oppponent for you.
+        Please Wait...<br />We are trying to find an oppponent for you.<br/>Ask your friend to join.
       </div>
     </div>
   );

@@ -19,14 +19,14 @@ export class RoomManager {
   static getRoomManager(): RoomManager {
     if (!RoomManager.roomManager) {
       RoomManager.roomManager = new RoomManager();
-      setInterval(() => {
-        RoomManager.roomManager.rooms
-          .filter(room => room.isRoomClosed())
-          .forEach(room => {
-            logger.info(`Removed room ${room.roomName}`);
-            RoomManager.roomManager.removeRoom(room);
-          });
-      }, 1000 * 60 * 5);
+      // setInterval(() => {
+      //   RoomManager.roomManager.rooms
+      //     .filter(room => room.isRoomClosed())
+      //     .forEach(room => {
+      //       logger.info(`Removed room ${room.roomName}`);
+      //       RoomManager.roomManager.removeRoom(room);
+      //     });
+      // }, 1000 * 60 * 5);
     }
     return RoomManager.roomManager;
   }
